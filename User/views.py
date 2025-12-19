@@ -24,12 +24,16 @@ def EditProfile(request):
         email=request.POST.get("txt_email")
         contact=request.POST.get("txt_contact")
         address=request.POST.get("txt_address")
-        userdata.user_name = name
-        userdata.user_email = email
-        userdata.user_contact = contact
-        userdata.user_address = address
-        userdata.save()
-        return render(request,'User/EditProfile.html',{"msg":"Profile Updated.."})
+        checkuser=tbl_user.objects.filter(user_email=email).count()
+        if checkuser > 0:
+            return render(request,"User/EditProfile.html",{'msg':"Email Already Exited"})
+        else:
+            userdata.user_name = name
+            userdata.user_email = email
+            userdata.user_contact = contact
+            userdata.user_address = address
+            userdata.save()
+            return render(request,'User/EditProfile.html',{"msg":"Profile Updated.."})
     else:
         return render(request,'User/EditProfile.html',{'user':userdata})
 

@@ -24,7 +24,7 @@ def EditProfile(request):
         address=request.POST.get("txt_address")
         checkjobprovider=tbl_jobprovider.objects.filter(jobprovider_email=email).count()
         if checkjobprovider > 0:
-            return render(request,"JobProvider/EditProfile.html",{'msg':"District Already Exited"})
+            return render(request,"JobProvider/EditProfile.html",{'msg':"Email Already Exited"})
         else:
             jobproviderdata.jobprovider_name = name
             jobproviderdata.jobprovider_email = email

@@ -150,7 +150,7 @@ def JobType(request):
         jobtype = request.POST.get("txt_type")
         checkjobtype=tbl_jobtype.objects.filter(jobtype_name=jobtype).count()
         if checkjobtype > 0:
-            return render(request,"Admin/JobType.html",{'msg':"Email Already Exited"})
+            return render(request,"Admin/JobType.html",{'msg':"JobType Already Exited"})
         else:
             tbl_jobtype.objects.create(jobtype_name=jobtype)
             return render(request,'Admin/JobType.html',{'msg':'Inserted Successfully..'})
@@ -167,7 +167,7 @@ def JobCategory(request):
         jobcategory = request.POST.get("txt_jobcategory")
         checkjobcategory=tbl_jobcategory.objects.filter(jobcategory_name=jobcategory).count()
         if checkjobcategory > 0:
-            return render(request,"Admin/JobCategory.html",{'msg':"Email Already Exited"})
+            return render(request,"Admin/JobCategory.html",{'msg':"JobCategory Already Exited"})
         else:
             tbl_jobcategory.objects.create(jobcategory_name=jobcategory)
             return render(request,'Admin/JobCategory.html',{'msg':'Inserted Successfully..'})
