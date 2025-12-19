@@ -24,6 +24,7 @@ urlpatterns=[
     path('viewexaminer/<int:id>',views.viewexaminer,name='viewexaminer'),
     path('ViewResult/<int:id>/<int:uid>',views.ViewResult,name='ViewResult'),
     path('Feedback/',views.Feedback,name='Feedback'),
+    path('SendMail/<int:uid>/',views.SendMail,name="SendMail"),
 
 
 

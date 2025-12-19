@@ -5,6 +5,8 @@ from Admin.models import *
 from User.models import *
 from django.http import JsonResponse
 from datetime import datetime
+from django.conf import settings
+from django.core.mail import send_mail
 
 # Create your views here.
 def HomePage(request):
@@ -113,7 +115,7 @@ def examinationdetails(request, id):
     if  request.method=="POST":
         name=request.POST.get("txt_name")
         qno=request.POST.get("txt_qno")
-        no=request.POST.get("txt_no")
+        # no=request.POST.get("txt_no")
         ftime = request.POST.get("txt_ftime")
         ttime = request.POST.get("txt_ttime")
 
@@ -125,7 +127,7 @@ def examinationdetails(request, id):
         minutes = int((total_seconds % 3600) // 60)
         
         time = str(hours) +" hours and "+ str(minutes) +" minutes"
-        tbl_examination.objects.create(examination_name=name,examination_mark=qno,examination_qno=no,examination_time=time,job=tbl_job.objects.get(id=id),time=str(time_diff),start_time=ftime)
+        tbl_examination.objects.create(examination_name=name,examination_mark=qno,examination_time=time,job=tbl_job.objects.get(id=id),time=str(time_diff),start_time=ftime)
 
     return render(request,'JobProvider/Exam.html',{'result':exm})    
 
@@ -193,3 +195,21 @@ def Feedback(request):
         return render(request,"JobProvider/Feedback.html",{'msg':'Feedback Submitted'})
     else:
         return render(request,"JobProvider/Feedback.html")
+
+def SendMail(request,uid):
+    userdata=tbl_user.objects.get(id=uid)
+    email=userdata.user_email
+    send_mail(
+                            'Respected Sir/Madam ',#subject
+                            "\rYou are selected for the job vecancy through the conducted examination." 
+                            "Attend the interview that held at Progressive Muvattupuzha on next monday."
+                            "Take your CV and essential certificates for attending the interview."
+                            "\r"
+                            "\r"
+                            "\rAll The Best For Your Interview."
+                            "\r By"
+                            "\r CARRER HIVE" ,#body
+                            settings.EMAIL_HOST_USER,
+                            [email],
+                        )
+    return render(request,"JobProvider/MyExam.html",{'msg':"Mail Send"})

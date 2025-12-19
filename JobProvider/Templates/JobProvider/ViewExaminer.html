@@ -32,6 +32,7 @@
             {% endif %}
             <td>
                 <a href="{% url 'JobProvider:ViewResult' user.examination.id user.user.id %}">View Result</a>
+                <a href="{% url 'JobProvider:SendMail' user.user.id %}">Send Mail</a>
             </td>
         </tr>
         {% endfor %}

@@ -33,3 +33,9 @@
   </table>
 </body>
 </html>
+{% if msg %}
+<script>
+    alert("{{msg}}")
+    window.location = "{% url 'JobProvider:MyExam' %}"
+</script>
+{% endif %}

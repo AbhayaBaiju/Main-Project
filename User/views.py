@@ -95,8 +95,9 @@ def viewexam(request,id):
     exam = tbl_examination.objects.filter(job=id)
 
     for i in exam:
+        questioncount = tbl_questions.objects.filter(examination=i.id).count()
+        i.qtcount = questioncount
         exambodycount = tbl_examinationbody.objects.filter(examination=i.id,user=request.session["uid"],examinationbody_status=1).count()
-        print(exambodycount)
         if exambodycount > 0:
             i.examstatus = 1
             

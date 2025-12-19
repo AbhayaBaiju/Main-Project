@@ -22,7 +22,7 @@ class tbl_jobqualification(models.Model):
 class tbl_examination(models.Model):
     examination_name=models.CharField(max_length=50) 
     examination_mark=models.CharField(max_length=50) 
-    examination_qno=models.CharField(max_length=50)
+    # examination_qno=models.CharField(max_length=50)
     examination_time=models.CharField(max_length=50) 
     examination_status = models.IntegerField(default=0)
     time = models.TimeField(null=True)
