@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>District</title>
+</head>
+
+<body>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <table border="2">
+            <tr>
+                <td>District</td>
+                <td><input required type="text" name="txt_districtname" title="Name Allows Only Alphabets,Spaces and First Letter Must Be Capital Letter" pattern="^[A-Z]+[a-zA-Z ]*$" value="{{districtOne.district_name}}"/></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><input type="submit" value="Submit"></td>
+            </tr>
+        </table>
+    </form>
+    <table border="1">
+        <tr>
+            <td>Sl No</td>
+            <td>District</td>
+            <td>Action</td>
+        </tr>
+        {% for i in districtDatas %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.district_name}}</td>
+            <td><a href="{%  url 'Admin:DeleteDistrict' i.id %}">Delete</a> | <a href="{%  url 'Admin:EditDistrict' i.id %}">Edit</a> </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+{% if msg %}
+<script>
+    alert("{{msg}}")
+    window.location = "{% url 'Admin:District' %}"
+</script>
+{% endif %}
+
+</html>

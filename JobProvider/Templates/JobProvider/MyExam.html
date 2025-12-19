@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Exam</title>
+</head>
+<body>
+    <table border="1">
+      <tr>
+          <th>#</th>
+          <th>job</th>
+          <th>job content</th>
+          <th>Name</th>
+          <th>Mark</th>   
+          <th>Time</th>
+          <th>Action</th>
+
+      </tr>
+          {% for i in result %}
+          <tr>
+           <td>{{forloop.counter}}</td>
+           <td>{{i.job.job_title}}</td>
+           <td>{{i.job.job_content}}</td>
+           <td>{{i.examination_name}}</td> 
+           <td>{{i.examination_mark}}</td>  
+           <td>{{i.examination_time}}</td> 
+           <td>
+              <a href="{% url 'JobProvider:viewexaminer' i.id %}">View Examiner</a>
+          </td>
+      </tr>
+      {% endfor %}
+  </table>
+</body>
+</html>

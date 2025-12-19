@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile</title>
+</head>
+<body>
+    <form action="" method="POST">
+        <table border="2">
+            <tr>
+                <td colspan="2"><img src="{{jobprovider.jobprovider_photo.url}}" alt=""></td>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td>{{jobprovider.jobprovider_name}}</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>{{jobprovider.jobprovider_email}}</td>
+            </tr>
+            <tr>
+                <td>Contact</td>
+                <td>{{jobprovider.jobprovider_contact}}</td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                <td>{{jobprovider.jobprovider_address}}</td>
+            </tr>
+            <tr>
+                <td>District</td>
+                <td>{{jobprovider.place.district.district_name}}</td>
+            </tr>
+            <tr>
+                <td>Place</td>
+                <td>{{jobprovider.place.place_name}}</td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><a href="{% url 'JobProvider:EditProfile' %}">Edit Profile</a>|<a href="{% url 'JobProvider:ChangePassword' %}">Change Password</a></td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

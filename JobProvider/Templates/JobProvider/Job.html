@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job</title>
+</head>
+<body>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <table border="2">
+            <tr>
+                <td>Title</td>
+                <td><input type="text" name="txt_title" id="txt_title"></td>
+            </tr>
+            <tr>
+                <td>Content</td>
+                <td><input type="text" name="txt_content" id="txt_content"></td>
+            </tr>
+            <tr>
+                <td>Age</td>
+                <td><input type="text" name="txt_age" id="txt_age"></td>
+            </tr>
+            <tr>
+                <td>Experience</td>
+                <td><input type="text" name="txt_experience" id="txt_experience"></td>
+            </tr>
+            <tr>
+                <td>Salary</td>
+                <td><input type="text" name="txt_salary" id="txt_salary"></td>
+            </tr>
+            <tr>
+                <td>Last Date</td>
+                <td><input type="date" name="txt_date" id="txt_date"></td>
+            </tr>
+            <tr>
+                <td>Job Type</td>
+                <td><select name="sel_jobtype" id="sel_jobtype">
+                    <option value="">-----Select------</option>
+                    {% for i in jobtypedata %}
+                    <option value="{{i.id}}">{{i.jobtype_name}}</option>
+                    {% endfor %}
+                </select></td>
+            </tr>
+            <tr>
+                <td> Job Category</td>
+                <td><select name="sel_category" required id="sel_category">
+                    <option value="">-----Select------</option>
+                    {% for i in jobcategorydata %}
+                    <option value="{{i.id}}">{{i.jobcategory_name}}</option>
+                    {% endfor %}
+                </select></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><input type="submit" value="Submit"></td>
+            </tr>
+        </table>
+    </form>
+    <table border="2">
+        <tr>
+            <td>SI NO</td>
+            <td>Title</td>
+            <td>Content</td>
+            <td>Age</td>
+            <td>Experience</td>
+            <td>Salary</td>
+            <td>Last Date</td>
+            <td>Job Type</td>
+            <td>Category</td>
+            <td>Action</td>
+        </tr>
+        {%  for i in jobdata %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.job_title}}</td>
+            <td>{{i.job_content}}</td>
+            <td>{{i.job_requriedage}}</td>
+            <td>{{i.job_experience}}</td>
+            <td>{{i.job_salary}}</td>
+            <td>{{i.job_lastdate}}</td>
+            <td>{{i.jobtype_id.jobtype_name}}</td>
+            <td>{{i.jobcategory_id.jobcategory_name}}</td>
+            <td><a href="{% url 'JobProvider:DeleteJob' i.id %}">Delete</a>
+            <a href="{% url 'JobProvider:JobQualification' i.id %}">Add Qualification</a>
+            <a href="{% url 'JobProvider:examinationdetails' i.id %}">Add Exam</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+{% if msg %}
+<script>
+    alert("{{msg}}")
+    window.location = "{% url 'JobProvider:Job' %}"
+</script>
+{% endif %}
+</html>

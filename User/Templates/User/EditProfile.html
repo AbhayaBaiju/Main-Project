@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+</head>
+<body>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <table border="2">
+            <tr>
+                <td>Name</td>
+                <td><input required type="text" name="txt_name" title="Name Allows Only Alphabets,Spaces and First Letter Must Be Capital Letter" pattern="^[A-Z]+[a-zA-Z ]*$" value="{{user.user_name}}"></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td><input type="email" required name="txt_email" value="{{user.user_email}}"></td>
+            </tr>
+            <tr>
+                <td>Contact</td>
+                <td><input type="text" required name="txt_contact" pattern="[7-9]{1}[0-9]{9}" 
+                title="Phone number with 7-9 and remaing 9 digit with 0-9" value="{{user.user_contact}}"></td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                <td><input type="text" name="txt_address" required id="txt_address" value="{{user.user_address}}"></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><input type="submit" value="Update"></td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>
+{% if msg %}
+<script>
+    alert("{{msg}}")
+    window.location="{% url 'User:MyProfile' %}"
+</script>
+{% endif %}

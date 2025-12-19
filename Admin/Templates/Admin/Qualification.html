@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qualification</title>
+</head>
+<body>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <table border="2">
+            <tr>
+                <td>Qualification</td>
+                <td>
+                    <input required type="text" name="txt_qualification" title="Name Allows Only Alphabets,Spaces and First Letter Must Be Capital Letter" pattern="^[A-Z]+[a-zA-Z ]*$"/></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><input type="submit" value="Submit"></td>
+            </tr>
+        </table>
+    </form>
+    <table border="2">
+        <tr>
+            <td>SI NO</td>
+            <td>Qualification</td>
+            <td>Action</td>
+        </tr>
+        {% for i in qualificationdata %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.qualification_name}}</td>
+            <td><a href="{% url 'Admin:DeleteQualification' i.id %}">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+{% if msg %}
+<script>
+    alert("{{msg}}")
+    window.location = "{% url 'Admin:Qualification' %}"
+</script>
+{% endif %}
+</html>

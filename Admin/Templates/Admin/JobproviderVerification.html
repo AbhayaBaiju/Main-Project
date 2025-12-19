@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Provider Verification</title>
+</head>
+<body>
+     {% csrf_token %}
+     <h1>Pending</h1>
+    <table border="2">
+        <tr>
+            <td>SI NO</td>
+            <td>Name</td>
+            <td>Email</td>
+            <td>Contact</td>
+            <td>Address</td>
+            <td>Photo</td>
+            <td>Proof</td>
+            <td>District</td>
+            <td>Place</td>
+            <td>DoJ</td>
+            <td>Action</td>
+        </tr>
+        {% for i in pending %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.jobprovider_name}}</td>
+            <td>{{i.jobprovider_email}}</td>
+            <td>{{i.jobprovider_contact}}</td>
+            <td>{{i.jobprovider_address}}</td>
+            <td><img src="{{i.jobprovider_photo.url}}" alt=""></td>
+            <td><img src="{{i.jobprovider_proof.url}}" alt=""></td>
+            <td>{{i.place.district.district_name}}</td>
+            <td>{{i.place.place_name}}</td>
+            <td>{{i.jobprovider_doj}}</td>
+            <td><a href="{% url 'Admin:Accept' i.id %}">Accept</a> | <a href="{% url 'Admin:Reject' i.id %}">Reject</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    <h1>Accepted</h1>
+    <table border="2">
+        <tr>
+            <td>SI NO</td>
+            <td>Name</td>
+            <td>Email</td>
+            <td>Contact</td>
+            <td>Address</td>
+            <td>Photo</td>
+            <td>Proof</td>
+            <td>District</td>
+            <td>Place</td>
+            <td>DoJ</td>
+            <td>Action</td>
+        </tr>
+        {% for i in accept %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.jobprovider_name}}</td>
+            <td>{{i.jobprovider_email}}</td>
+            <td>{{i.jobprovider_contact}}</td>
+            <td>{{i.jobprovider_address}}</td>
+            <td><img src="{{i.jobprovider_photo.url}}" alt=""></td>
+            <td><img src="{{i.jobprovider_proof.url}}" alt=""></td>
+            <td>{{i.place.district.district_name}}</td>
+            <td>{{i.place.place_name}}</td>
+            <td>{{i.jobprovider_doj}}</td>
+            <td><a href="{% url 'Admin:Reject' i.id %}">Reject</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    <h1>Rejected</h1>
+    <table border="2">
+        <tr>
+            <td>SI NO</td>
+            <td>Name</td>
+            <td>Email</td>
+            <td>Contact</td>
+            <td>Address</td>
+            <td>Photo</td>
+            <td>Proof</td>
+            <td>District</td>
+            <td>Place</td>
+            <td>DoJ</td>
+            <td>Action</td>
+        </tr>
+        {% for i in reject %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.jobprovider_name}}</td>
+            <td>{{i.jobprovider_email}}</td>
+            <td>{{i.jobprovider_contact}}</td>
+            <td>{{i.jobprovider_address}}</td>
+            <td><img src="{{i.jobprovider_photo.url}}" alt=""></td>
+            <td><img src="{{i.jobprovider_proof.url}}" alt=""></td>
+            <td>{{i.place.district.district_name}}</td>
+            <td>{{i.place.place_name}}</td>
+            <td>{{i.jobprovider_doj}}</td>
+            <td><a href="{% url 'Admin:Accept' i.id %}">Accept</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+{% if msg %}
+<script>
+    alert("{{msg}}")
+    window.location = "{% url 'Admin:JobproviderVerification' %}"
+</script>
+{% endif %}
+</html>

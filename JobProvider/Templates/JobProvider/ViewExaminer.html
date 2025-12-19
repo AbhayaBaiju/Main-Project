@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Examiner</title>
+</head>
+<body>
+<table border="1" cellpadding="10">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>User Name</th>
+            <th>Email</th>
+            <th>Contact</th>
+            <th>Total Mark</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for user in examiners %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ user.user.user_name }}</td>
+            <td>{{ user.user.user_email }}</td>
+            <td>{{ user.user.user_contact }}</td>
+            {% if user.total_marks == 0 %}
+            <td>Not Available</td>
+            {% else %}x
+            <td>{{ user.total_marks }}</td>
+            {% endif %}
+            <td>
+                <a href="{% url 'JobProvider:ViewResult' user.examination.id user.user.id %}">View Result</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+</body>
+</html>

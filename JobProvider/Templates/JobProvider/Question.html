@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Question</title>
+</head>
+<body>
+    <h1 align="center">Add Questions</h1>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+    <table border="1" align="center">
+        <tr>
+          <td>Question</td>
+          <td><textarea name="txt_question" required></textarea></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Add"></td>
+          </tr>   
+        </table>
+    </form>
+    <table border="1" cellpadding="10">
+        <tr>
+            <th>#</th>
+            <th>Questions</th>
+            <th>Exam</th>
+            <th>Action</th>
+            
+  
+        </tr>
+            {% for i in result %}
+            <tr>
+             <td>{{forloop.counter}}</td>
+             <td width="250">{{i.question}}</td> 
+             <td>{{i.examination.examination_name}}</td>
+             <td><a href="{% url 'JobProvider:addoptions' i.id %}">Add options</a></td> 
+      
+                
+             
+        </tr>
+        {% endfor %}
+    </table>
+    
+</body>
+</html>

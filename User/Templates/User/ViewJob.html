@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Job</title>
+</head>
+<body>
+    <table border="2">
+        <tr>
+            <td>SI NO</td>
+            <td>Title</td>
+            <td>Content</td>
+            <td>Requried Age</td>
+            <td>Experience</td>
+            <td>Salary</td>
+            <td>Last Date</td>
+            <td>Date</td>
+            <td>Job Provider</td>
+            <td>Action</td>
+        </tr>
+        {% for i in jobdata %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.job_title}}</td>
+            <td>{{i.job_content}}</td>
+            <td>{{i.job_requriedage}}</td>
+            <td>{{i.job_experience}}</td>
+            <td>{{i.job_salary}}</td>
+            <td>{{i.job_lastdate}}</td>
+            <td>{{i.job_date}}</td>
+            <td>{{i.jobprovider_id.jobprovider_name}}</td>
+            <td>
+                <a href="{% url 'User:Request' i.id %}">Request</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

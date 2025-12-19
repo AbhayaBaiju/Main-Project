@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Request</title>
+</head>
+<body>
+    <table border="2">
+        <tr>
+            <td>SI NO</td>
+            <td>Job Details</td>
+            <td>User Details</td>
+            <td>File</td>
+            <td>Date</td>
+            <td>Action</td>
+        </tr>
+        {% for i in viewrequestdata %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.job_id.job_title}} <br>
+                {{i.job_id.job_content}}<br>
+                {{i.job_id.job_requriedage}}<br>
+                {{i.job_id.job_experience}}<br>
+                {{i.job_id.job_salary}}
+            </td>
+            <td>{{i.user_id.user_name}}<br>
+                {{i.user_id.user_email}}<br>
+                {{i.user_id.user_contact}}<br>
+                {{i.user_id.user_address}}<br>
+            </td>
+            <td>{{i.request_file}}</td>
+            <td>{{i.request_date}}</td>
+            <td>{% if i.request_status == 0 %}<a href="{% url 'JobProvider:Accept' i.id %}">Accept</a> | <a href="{% url 'JobProvider:Reject' i.id %}">Reject</a>
+                {% elif i.request_status == 1 %}Accepted
+                {% elif i.request_status == 2 %}Rejected
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+{% if msg %}
+<script>
+    alert("{{msg}}")
+    window.location = "{% url 'JobProvider:ViewRequest' %}"
+</script>
+{% endif %}
+</html>

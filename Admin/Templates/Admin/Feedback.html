@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback</title>
+</head>
+<body>
+    <table border="2">
+        <tr>
+            <td>SINO</td>
+            <td>User</td>
+            <td>Content</td>
+        </tr>
+        {% for i in userfeedback %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.user.user_name}}</td>
+            <td>{{i.feedback_content}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+        <table border="2">
+        <tr>
+            <td>SINO</td>
+            <td>JobProvider</td>
+            <td>Content</td>
+        </tr>
+        {% for i in jobproviderfeedback %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.jobprovider.jobprovider_name}}</td>
+            <td>{{i.feedback_content}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

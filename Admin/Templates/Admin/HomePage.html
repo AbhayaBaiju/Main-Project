@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+</head>
+<body>
+    Welcome {{admindata.admin_name}}
+    <a href="{% url 'Admin:District' %}">District</a>
+    <a href="{% url 'Admin:Place' %}">Place</a>
+    <a href="{% url 'Admin:JobType' %}">JobType</a>
+    <a href="{% url 'Admin:UserList' %}">UserList</a>
+    <a href="{% url 'Admin:ViewComplaint' %}">ViewComplaint</a>
+    <a href="{% url 'Admin:Qualification' %}">Qualification</a>
+    <a href="{% url 'Admin:JobproviderVerification' %}">JobproviderVerification</a>
+    <a href="{% url 'Admin:Feedback' %}">Feedback</a>
+    <a href="{% url 'Admin:JobCategory' %}">JobCategory</a>
+
+
+
+    
+</body>
+</html>

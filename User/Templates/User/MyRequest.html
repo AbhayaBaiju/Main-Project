@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Request</title>
+</head>
+<body>
+    <table border="2">
+        <tr>
+            <td>SI NO</td>
+            <td>Job Details</td>
+            <td>Job Provider Details</td>
+            <td>Date</td>
+            <td>Status</td>
+        </tr>
+        {% for i in reqdata %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.job_id.job_title}} <br> 
+                {{i.job_id.job_content}} <br>
+                {{i.job_id.job_requriedage}} <br>
+                {{i.job_id.job_experience}} <br>
+                {{i.job_id.job_salary}} 
+            </td>
+            <td>{{i.job_id.jobprovider_id.jobprovider_name}} <br>
+                {{i.job_id.jobprovider_id.jobprovider_email}} <br>
+                {{i.job_id.jobprovider_id.jobprovider_contact}} <br>
+                {{i.job_id.jobprovider_id.jobprovider_address}} <br>
+            </td>
+            <td>{{i.job_id.job_date}}</td>
+            <td>{% if i.request_status == 0 %}Pending
+                {% elif i.request_status == 1 %}Accepted<a href="{% url 'User:ViewExam' i.job_id.id %}">View Exam</a>
+                {% elif i.request_status == 2 %}Rejected
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

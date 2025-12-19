@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User List</title>
+</head>
+<body>
+    {% csrf_token %}
+    <table border="2">
+        <tr>
+            <td>SI NO</td>
+            <td>Name</td>
+            <td>Email</td>
+            <td>Contact</td>
+            <td>Address</td>
+            <td>Photo</td>
+            <td>District</td>
+            <td>Place</td>
+        </tr>
+        {% for i in userdata %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.user_name}}</td>
+            <td>{{i.user_email}}</td>
+            <td>{{i.user_contact}}</td>
+            <td>{{i.user_address}}</td>
+            <td><img src="{{i.user_photo.url}}" alt="" width="150"></td>
+            <td>{{i.place.district.district_name}}</td>
+            <td>{{i.place.place_name}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

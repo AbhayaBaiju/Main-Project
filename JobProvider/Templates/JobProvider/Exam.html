@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Examination</title>
+</head>
+<body>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table border="1" align="center">
+          <tr>
+            <td>Name</td>
+            <td><input required type="text" name="txt_name" title="Name Allows Only Alphabets,Spaces and First Letter Must Be Capital Letter" pattern="^[A-Z]+[a-zA-Z ]*$"/></td>
+          </tr>
+          <tr>
+            <td>Total Mark</td>
+            <td><input type="text" name="txt_qno" required id="txt_qno"></td>
+          </tr>
+          <tr>
+            <td>Question No</td>
+            <td><input type="text" name="txt_no" required id="txt_no"></td>
+          </tr>
+          <tr>
+            <td>From Time</td>
+            <td><input type="time" name="txt_ftime" required id=""></td>
+          </tr>
+
+          <tr>
+            <td>To Time</td>
+            <td><input type="time" name="txt_ttime" required id=""></td>
+          </tr>
+          <tr>
+            <td><input type="submit" value="Submit"></td>
+            <td><input type="submit" value="Cancel"></td>
+          </tr>   
+        </table>
+    </form>
+    <table border="1">
+      <tr>
+          <th>#</th>
+          <th>Name</th>  
+          <th>Total Mark</th>
+          <th>Start Time</th>
+          <th>Time</th>
+          <th>Action</th>
+
+      </tr>
+          {% for i in result %}
+          <tr>
+           <td>{{forloop.counter}}</td>
+           <td>{{i.examination_name}}</td> 
+           <td>{{i.examination_mark}}</td>    
+           <td>{{i.start_time}}</td> 
+           <td>{{i.examination_time}}</td> 
+           <td><a href="{% url 'JobProvider:addquestions' i.id %}">Add Questions</a>
+          </td>
+      </tr>
+      {% endfor %}
+  </table>
+    
+
+          
+    
+</body>
+</html>
