@@ -2,6 +2,10 @@ from django.shortcuts import render,redirect
 from Admin.models import *
 from Guest.models import *
 # Create your views here.
+
+def index(request):
+    return render(request,"Guest/index.html")
+
 def UserRegistration(request):
     districtDatas = tbl_district.objects.all()
     if request.method == "POST":
