@@ -1,41 +1,101 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Exam</title>
-</head>
-<body>
-    <table border="1">
-      <tr>
-          <th>#</th>
-          <th>job</th>
-          <th>job content</th>
-          <th>Name</th>
-          <th>Mark</th>   
-          <th>Time</th>
-          <th>Action</th>
+{% extends 'JobProvider/Header.html' %}
+{% block content %}
 
-      </tr>
-          {% for i in result %}
-          <tr>
-           <td>{{forloop.counter}}</td>
-           <td>{{i.job.job_title}}</td>
-           <td>{{i.job.job_content}}</td>
-           <td>{{i.examination_name}}</td> 
-           <td>{{i.examination_mark}}</td>  
-           <td>{{i.examination_time}}</td> 
-           <td>
-              <a href="{% url 'JobProvider:viewexaminer' i.id %}">View Examiner</a>
-          </td>
-      </tr>
-      {% endfor %}
-  </table>
-</body>
-</html>
+<style>
+    /* ===== Page Wrapper ===== */
+    .jp-myexam-wrapper {
+        width: 90%;
+        margin: 40px auto;
+        font-family: Arial, sans-serif;
+    }
+
+    /* ===== Page Title ===== */
+    .jp-myexam-title {
+        text-align: center;
+        color: #0a1f44;
+        margin-bottom: 20px;
+        font-size: 24px;
+    }
+
+    /* ===== Exam Table ===== */
+    .jp-myexam-table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #ffffff;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .jp-myexam-table th {
+        background-color: #0a1f44;
+        color: white;
+        padding: 10px;
+        font-size: 14px;
+        text-transform: capitalize;
+    }
+
+    .jp-myexam-table td {
+        padding: 10px;
+        font-size: 14px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .jp-myexam-table tr:hover {
+        background-color: #f2f6ff;
+    }
+
+    /* ===== Action Link ===== */
+    .jp-myexam-action a {
+        text-decoration: none;
+        color: #0a1f44;
+        font-weight: bold;
+    }
+
+    .jp-myexam-action a:hover {
+        text-decoration: underline;
+        color: #081a36;
+    }
+</style>
+
+<div class="jp-myexam-wrapper">
+    <h2 class="jp-myexam-title">My Examinations</h2>
+
+    <table class="jp-myexam-table">
+        <tr>
+            <th>#</th>
+            <th>Job</th>
+            <th>Job Content</th>
+            <th>Exam Name</th>
+            <th>Mark</th>
+            <th>Time</th>
+            <th>Action</th>
+        </tr>
+
+        {% for i in result %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ i.job.job_title }}</td>
+            <td>{{ i.job.job_content }}</td>
+            <td>{{ i.examination_name }}</td>
+            <td>{{ i.examination_mark }}</td>
+            <td>{{ i.examination_time }}</td>
+            <td class="jp-myexam-action">
+                <a href="{% url 'JobProvider:viewexaminer' i.id %}">
+                    View Examiner
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
 {% if msg %}
 <script>
-    alert("{{msg}}")
-    window.location = "{% url 'JobProvider:MyExam' %}"
+    alert("{{ msg }}");
+    window.location = "{% url 'JobProvider:MyExam' %}";
 </script>
 {% endif %}
+
+<br><br><br><br>
+
+{% endblock %}

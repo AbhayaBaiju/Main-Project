@@ -25,6 +25,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
     rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Gemstones&display=swap" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="{% static 'Main/assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -32,6 +33,8 @@
   <link href="{% static 'Main/assets/vendor/aos/aos.css' %}" rel="stylesheet">
   <link href="{% static 'Main/assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
   <link href="{% static 'Main/assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
 
   <!-- Main CSS File -->
   <link href="{% static 'Main/assets/css/main.css' %}" rel="stylesheet">
@@ -61,6 +64,14 @@
       font-style: normal;
     }
   </style>
+  <style>
+    .rubik-gemstones-regular {
+  font-family: "Rubik Gemstones", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+  </style>
 </head>
 
 <body class="index-page">
@@ -71,40 +82,18 @@
       <a href="index.html" class="logo d-flex align-items-center me-auto">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <!-- <img src="assets/img/logo.png" alt=""> -->
-        <h1 class="sitename">Dewi</h1>
+        <h1 class="rubik-gemstones-regular">HIVE</h1>
       </a>
 
       <nav id="navmenu" class="navmenu">
         <ul>
-          <li><a href="#hero" class="active">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#portfolio">Portfolio</a></li>
-          <li><a href="#team">Team</a></li>
-          <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-            <ul>
-              <li><a href="#">Dropdown 1</a></li>
-              <li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i
-                    class="bi bi-chevron-down toggle-dropdown"></i></a>
-                <ul>
-                  <li><a href="#">Deep Dropdown 1</a></li>
-                  <li><a href="#">Deep Dropdown 2</a></li>
-                  <li><a href="#">Deep Dropdown 3</a></li>
-                  <li><a href="#">Deep Dropdown 4</a></li>
-                  <li><a href="#">Deep Dropdown 5</a></li>
-                </ul>
-              </li>
-              <li><a href="#">Dropdown 2</a></li>
-              <li><a href="#">Dropdown 3</a></li>
-              <li><a href="#">Dropdown 4</a></li>
-            </ul>
-          </li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
+          <li><a href="{% url 'Guest:index' %}" class="active">Home</a></li>
+          <li><a href="{% url 'Guest:Login' %}">Login</a></li>
+          <li><a href="{% url 'Guest:UserRegistration' %}">User Registration</a></li>
+          <li><a href="{% url 'Guest:JobproviderRegistration' %}">Jobprovider Registration</a></li>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
 
-      <a class="cta-btn" href="index.html#about">Get Started</a>
 
     </div>
   </header>
@@ -159,17 +148,15 @@
           <div class="col-xl-4 col-md-6" data-aos="zoom-in" data-aos-delay="200">
             <div class="service-item">
               <div class="img">
-                <img src="{% static 'Main/assets/img/services-1.jpg' %}" class="img-fluid" alt="">
+                <img src="{% static 'Main/assets/img/apple.jpg' %}" class="img-fluid" alt="">
               </div>
               <div class="details position-relative">
                 <div class="icon">
-                  <i class="bi bi-activity"></i>
+                 <img src="{% static 'Main/assets/img/apple-logo.png' %}" width="50px" alt="">
                 </div>
-                <!-- <a href="service-details.html" class="stretched-link"> -->
-                <h3>Nesciunt Mete</h3>
+                <h3>APPLE</h3>
                 <!-- </a> -->
-                <p>Provident nihil minus qui consequatur non omnis maiores. Eos accusantium minus dolores iure
-                  perferendis.</p>
+                <p>Apple Inc. is a multinational technology company headquartered in Cupertino, California, USA.It is widely known for designing, developing, and selling innovative consumer electronics, software, and digital services.</p>
               </div>
             </div>
           </div><!-- End Service Item -->
@@ -177,17 +164,15 @@
           <div class="col-xl-4 col-md-6" data-aos="zoom-in" data-aos-delay="300">
             <div class="service-item">
               <div class="img">
-                <img src="{% static 'Main/assets/img/services-2.jpg' %}" class="img-fluid" alt="">
+                <img src="{% static 'Main/assets/img/gooogle.jpg' %}" class="img-fluid" alt="">
               </div>
               <div class="details position-relative">
                 <div class="icon">
-                  <i class="bi bi-broadcast"></i>
+                  <img src="{% static 'Main/assets/img/google.png' %}" width="50px" alt="">
                 </div>
-                <!-- <a href="service-details.html" class="stretched-link"> -->
-                <h3>Eosle Commodi</h3>
+                <h3>GOOGLE</h3>
                 <!-- </a> -->
-                <p>Ut autem aut autem non a. Sint sint sit facilis nam iusto sint. Libero corrupti neque eum hic non ut
-                  nesciunt dolorem.</p>
+                <p>Founded in 1998 by Larry Page and Sergey Brin, Google focuses on innovation in areas such as cloud computing, artificial intelligence, mobile operating systems (Android), and digital advertising.</p>
               </div>
             </div>
           </div><!-- End Service Item -->
@@ -195,17 +180,15 @@
           <div class="col-xl-4 col-md-6" data-aos="zoom-in" data-aos-delay="400">
             <div class="service-item">
               <div class="img">
-                <img src="{% static 'Main/assets/img/services-3.jpg' %}" class="img-fluid" alt="">
+                <img src="{% static 'Main/assets/img/microsoft.jpg' %}" class="img-fluid" alt="">
               </div>
               <div class="details position-relative">
                 <div class="icon">
-                  <i class="bi bi-easel"></i>
+                  <img src="{% static 'Main/assets/img/microsoft.png' %}" width="50px" alt="">
                 </div>
-                <!-- <a href="service-details.html" class="stretched-link"> -->
-                <h3>Ledo Markt</h3>
+                <h3>MICROSOFT</h3>
                 <!-- </a> -->
-                <p>Ut excepturi voluptatem nisi sed. Quidem fuga consequatur. Minus ea aut. Vel qui id voluptas adipisci
-                  eos earum corrupti.</p>
+                <p>Microsoft Corporation is a multinational technology company headquartered in Redmond, Washington, USA. It is widely known for developing software products such as Microsoft Windows.</p>
               </div>
             </div>
           </div><!-- End Service Item -->
@@ -226,7 +209,7 @@
         <ul class="nav nav-tabs row  d-flex justify-content-center" data-aos="fade-up" data-aos-delay="100">
           <li class="nav-item col-3">
             <a class="nav-link active show" data-bs-toggle="tab" data-bs-target="#features-tab-1">
-              <i class="bi bi-binoculars"></i>
+              <i class="fa-regular fa-alarm-clock" ></i>
               <h4 class="d-none d-lg-block">PART-TIME JOB <br>FULL-TIME JOB</h4>
             </a>
           </li>
@@ -239,7 +222,7 @@
           </li>
           <li class="nav-item col-3">
             <a class="nav-link" data-bs-toggle="tab" data-bs-target="#features-tab-3">
-              <i class="bi bi-brightness-high"></i>
+              <i class="fa-solid fa-user-group"></i>
               <h4 class="d-none d-lg-block">FREELANCE JOBS</h4>
             </a>
           </li>
@@ -250,29 +233,21 @@
           <div class="tab-pane fade active show" id="features-tab-1">
             <div class="row">
               <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0">
-                <h3>Voluptatem dignissimos provident quasi corporis voluptates sit assumenda.</h3>
+                
+                <h3>PART-TIME JOB</h3>
                 <p class="fst-italic">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                  dolore
-                  magna aliqua.
+                  Part-Time Jobs are employment positions in which an individual works for fewer hours than a full-time employee. These jobs usually involve flexible working hours and may not require a long-term commitment.</p>
+
+<p>Part-time jobs are commonly suitable for students, freelancers, homemakers, or individuals seeking extra income. Employees are generally paid on an hourly, daily, or monthly basis, and benefits are often limited compared to full-time jobs. In a job board application, part-time jobs help users find opportunities that match their availability and work–life balance.
                 </p>
-                <ul>
-                  <li><i class="bi bi-check2-all"></i>
-                    <spab>Ullamco laboris nisi ut aliquip ex ea commodo consequat.</spab>
-                  </li>
-                  <li><i class="bi bi-check2-all"></i> <span>Duis aute irure dolor in reprehenderit in voluptate
-                      velit</span>.</li>
-                  <li><i class="bi bi-check2-all"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                      Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu
-                      fugiat nulla pariatur.</span></li>
-                </ul>
+                <h3>FULL-TIME JOB</h3>
+
                 <p>
-                  Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                  voluptate
-                  velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                  sunt in
-                  culpa qui officia deserunt mollit anim id est laborum
+                  Full-Time Jobs are employment positions in which an individual works a fixed number of hours per week, typically 35–40 hours, for a single organization. These jobs usually involve a long-term or permanent work arrangement.</p>
+
+<P>Employees in full-time jobs receive a regular salary and often enjoy additional benefits such as paid leave, health insurance, provident fund, and job security. In a job board application, full-time jobs are listed for candidates seeking stable careers and long-term professional growth.
                 </p>
+                
               </div>
               <div class="col-lg-6 order-1 order-lg-2 text-center">
                 <img src="{% static 'Main/assets/img/working-1.jpg' %}" alt="" class="img-fluid">
@@ -282,31 +257,14 @@
 
           <div class="tab-pane fade" id="features-tab-2">
             <div class="row">
-              <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0">
-                <h3>Neque exercitationem debitis soluta quos debitis quo mollitia officia est</h3>
+              <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0"><br><br>
+                <h3>INTERNSHIP</h3><br>
                 <p>
-                  Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                  voluptate
-                  velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                  sunt in
-                  culpa qui officia deserunt mollit anim id est laborum
+                  An Internship is a short-term, training-oriented job designed mainly for students or fresh graduates (freshers) to help them gain practical, real-world experience in a particular field.</p>
+
+<P>During an internship, candidates work under the guidance of experienced professionals and apply the theoretical knowledge they have learned in college to real tasks and projects. Internships may be paid or unpaid and usually last for a few weeks to several months. They help students develop technical skills, improve communication, understand workplace culture, and enhance their resumes. In a job board application, internship listings are especially useful for candidates who are starting their careers and looking to build industry experience.
                 </p>
-                <p class="fst-italic">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                  dolore
-                  magna aliqua.
-                </p>
-                <ul>
-                  <li><i class="bi bi-check2-all"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo
-                      consequat.</span></li>
-                  <li><i class="bi bi-check2-all"></i> <span>Duis aute irure dolor in reprehenderit in voluptate
-                      velit.</span></li>
-                  <li><i class="bi bi-check2-all"></i> <span>Provident mollitia neque rerum asperiores dolores quos qui
-                      a. Ipsum neque dolor voluptate nisi sed.</span></li>
-                  <li><i class="bi bi-check2-all"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                      Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu
-                      fugiat nulla pariatur.</span></li>
-                </ul>
+                
               </div>
               <div class="col-lg-6 order-1 order-lg-2 text-center">
                 <img src="{% static 'Main/assets/img/working-2.jpg' %}" alt="" class="img-fluid">
@@ -316,28 +274,14 @@
 
           <div class="tab-pane fade" id="features-tab-3">
             <div class="row">
-              <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0">
-                <h3>Voluptatibus commodi ut accusamus ea repudiandae ut autem dolor ut assumenda</h3>
+              <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0"><br><br>
+                <h3>FREELANCE JOB</h3><br>
                 <p>
-                  Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                  voluptate
-                  velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                  sunt in
-                  culpa qui officia deserunt mollit anim id est laborum
+                  Freelance Jobs are a type of work where individuals are self-employed professionals who offer their skills and services to clients on a task-based or project-based basis instead of working as permanent employees.</p>
+
+<p>Freelancers are hired for specific projects such as website development, graphic design, content writing, digital marketing, or data analysis. They usually work for multiple clients at the same time and have the freedom to choose their working hours and location. Payment is typically made per project, per task, or per hour. In a job board application, freelance jobs help connect companies with skilled professionals for short-term or specialized work without long-term employment commitments.
                 </p>
-                <ul>
-                  <li><i class="bi bi-check2-all"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo
-                      consequat.</span></li>
-                  <li><i class="bi bi-check2-all"></i> <span>Duis aute irure dolor in reprehenderit in voluptate
-                      velit.</span></li>
-                  <li><i class="bi bi-check2-all"></i> <span>Provident mollitia neque rerum asperiores dolores quos qui
-                      a. Ipsum neque dolor voluptate nisi sed.</span></li>
-                </ul>
-                <p class="fst-italic">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                  dolore
-                  magna aliqua.
-                </p>
+              
               </div>
               <div class="col-lg-6 order-1 order-lg-2 text-center">
                 <img src="{% static 'Main/assets/img/working-3.jpg' %}" alt="" class="img-fluid">
@@ -410,7 +354,7 @@
                   data-aos-delay="400">
                   <i class="bi bi-envelope"></i>
                   <h3>Email Us</h3>
-                  <p>info@example.com</p>
+                  <p>careerhive2697@gmail.com</p>
                 </div>
               </div><!-- End Info Item -->
 

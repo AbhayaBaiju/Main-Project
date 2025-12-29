@@ -1,29 +1,116 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feedback</title>
-</head>
-<body>
-    <form action="" method="POST">
-        {% csrf_token %}
-        <table border="2">
-            <tr>
-                <td>Feedback</td>
-                <td><textarea name="txt_feedback" required id="txt_feedback"></textarea></td>
-            </tr>
-            <tr>
-                <td colspan="2" align="center"><input type="submit" value="Submit"></td>
-            </tr>
-        </table>
-    </form>
-    
-</body>
-</html>
+{% extends 'JobProvider/Header.html' %}
+{% block content %}
+
+<style>
+    /* ===== Feedback Page Wrapper ===== */
+    .jp-feedback-wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 40px;
+        font-family: Arial, sans-serif;
+    }
+
+    /* ===== Feedback Card ===== */
+    .jp-feedback-card {
+        width: 450px;
+        background-color: #ffffff;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .jp-feedback-card h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #0a1f44;
+    }
+
+    /* ===== Feedback Table ===== */
+    .jp-feedback-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .jp-feedback-table td {
+        padding: 10px;
+        vertical-align: top;
+    }
+
+    .jp-feedback-table td:first-child {
+        font-weight: bold;
+        color: #333;
+        width: 30%;
+    }
+
+    /* ===== Textarea ===== */
+    .jp-feedback-textarea {
+        width: 100%;
+        height: 120px;
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+        resize: none;
+    }
+
+    .jp-feedback-textarea:focus {
+        outline: none;
+        border-color: #0a1f44;
+    }
+
+    /* ===== Submit Button ===== */
+    .jp-feedback-btn {
+        background-color: #0a1f44;
+        color: #ffffff;
+        border: none;
+        padding: 8px 20px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 15px;
+        transition: background-color 0.3s ease;
+    }
+
+    .jp-feedback-btn:hover {
+        background-color: #081a36;
+    }
+</style>
+
+<div class="jp-feedback-wrapper">
+    <div class="jp-feedback-card">
+
+        <h2>Feedback</h2>
+
+        <form action="" method="POST">
+            {% csrf_token %}
+            <table class="jp-feedback-table">
+                <tr>
+                    <td>Feedback</td>
+                    <td>
+                        <textarea
+                            name="txt_feedback"
+                            class="jp-feedback-textarea"
+                            required></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <input type="submit" value="Submit" class="jp-feedback-btn">
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+    </div>
+</div>
+
 {% if msg %}
 <script>
-    alert("{{msg}}")
-    window.location="{% url 'JobProvider:Feedback' %}"
+    alert("{{ msg }}");
+    window.location = "{% url 'JobProvider:Feedback' %}";
 </script>
 {% endif %}
+
+<br><br><br>
+
+{% endblock %}

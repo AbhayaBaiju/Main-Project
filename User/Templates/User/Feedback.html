@@ -1,29 +1,109 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feedback</title>
-</head>
-<body>
-    <form action="" method="POST">
-        {% csrf_token %}
-        <table border="2">
-            <tr>
-                <td>Feedback</td>
-                <td><textarea name="txt_feedback" required id="txt_feedback"></textarea></td>
-            </tr>
-            <tr>
-                <td colspan="2" align="center"><input type="submit" value="Submit"></td>
-            </tr>
-        </table>
-    </form>
-    
-</body>
-</html>
+{% extends 'User/Header.html' %}
+{% block content %}
+
+<style>
+    /* ===== Feedback Page Styles ===== */
+
+    .feedback-wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 40px;
+        font-family: Arial, sans-serif;
+    }
+
+    .feedback-card {
+        width: 450px;
+        background-color: #ffffff;
+        padding: 25px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .feedback-card h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #0a1f44; /* dark blue */
+    }
+
+    .feedback-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .feedback-table td {
+        padding: 10px;
+        vertical-align: top;
+    }
+
+    .feedback-table td:first-child {
+        font-weight: bold;
+        color: #333;
+        width: 30%;
+    }
+
+    .feedback-textarea {
+        width: 100%;
+        height: 100px;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        resize: vertical;
+        font-size: 14px;
+    }
+
+    .feedback-textarea:focus {
+        outline: none;
+        border-color: #0a1f44; /* dark blue */
+    }
+
+    .feedback-btn {
+        background-color: #0a1f44; /* dark blue */
+        color: #ffffff;
+        border: none;
+        padding: 8px 22px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .feedback-btn:hover {
+        background-color: #081a36; /* darker hover */
+    }
+</style>
+
+<div class="feedback-wrapper">
+    <div class="feedback-card">
+
+        <h2>Submit Feedback</h2>
+
+        <form action="" method="POST">
+            {% csrf_token %}
+            <table class="feedback-table">
+                <tr>
+                    <td>Feedback</td>
+                    <td>
+                        <textarea name="txt_feedback" required class="feedback-textarea"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <input type="submit" value="Submit" class="feedback-btn">
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+    </div>
+</div>
+
 {% if msg %}
 <script>
-    alert("{{msg}}")
-    window.location="{% url 'User:Feedback' %}"
+    alert("{{ msg }}");
+    window.location = "{% url 'User:Feedback' %}";
 </script>
 {% endif %}
+
+<br><br>
+<br><br>
+{% endblock %}

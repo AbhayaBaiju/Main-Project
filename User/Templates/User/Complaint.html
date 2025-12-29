@@ -1,52 +1,180 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Complaint</title>
-</head>
-<body>
-    <form action="" method="POST">
-        {% csrf_token %}
-        <table border="2">
-            <tr>
-                <td>Title</td>
-                <td><input type="text" name="txt_title" required id="txt_title"></td>
-            </tr>
-            <tr>
-                <td>Content</td>
-                <td><textarea name="txt_content" required id="txt_content"></textarea></td>
-            </tr>
-            <tr>
-                <td colspan="2" align="center"><input type="submit" value="Submit"></td>
-            </tr>
-        </table>
-    </form>
-    <table border="2">
+{% extends 'User/Header.html' %}
+{% block content %}
+
+<style>
+    /* ===== Complaint Page (Dark Blue Theme) ===== */
+
+    .complaint-wrapper {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+        margin-top: 30px;
+        font-family: Arial, sans-serif;
+    }
+
+    /* ---- Complaint Form Card ---- */
+    .complaint-form-card {
+        width: 500px;
+        background-color: #ffffff;
+        padding: 25px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .complaint-form-card h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #0a1f44;
+    }
+
+    .complaint-form-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .complaint-form-table td {
+        padding: 10px;
+    }
+
+    .complaint-label {
+        font-weight: bold;
+        color: #333;
+        width: 30%;
+    }
+
+    .complaint-input,
+    .complaint-textarea {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+
+    .complaint-textarea {
+        height: 90px;
+        resize: vertical;
+    }
+
+    .complaint-input:focus,
+    .complaint-textarea:focus {
+        outline: none;
+        border-color: #0a1f44;
+    }
+
+    .complaint-submit-btn {
+        background-color: #0a1f44;
+        color: #ffffff;
+        border: none;
+        padding: 8px 22px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .complaint-submit-btn:hover {
+        background-color: #081a36;
+    }
+
+    /* ---- Complaint List Table ---- */
+    .complaint-list-table {
+        width: 90%;
+        border-collapse: collapse;
+        background-color: #ffffff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .complaint-list-table th,
+    .complaint-list-table td {
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    .complaint-list-table th {
+        background-color: #0a1f44;
+        color: #ffffff;
+    }
+
+    .complaint-delete-link {
+        color: #b30000;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+    .complaint-delete-link:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<div class="complaint-wrapper">
+
+    <!-- ===== Complaint Form ===== -->
+    <div class="complaint-form-card">
+        <h2>Submit Complaint</h2>
+
+        <form action="" method="POST">
+            {% csrf_token %}
+            <table class="complaint-form-table">
+                <tr>
+                    <td class="complaint-label">Title</td>
+                    <td>
+                        <input type="text" name="txt_title" required class="complaint-input">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="complaint-label">Content</td>
+                    <td>
+                        <textarea name="txt_content" required class="complaint-textarea"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <input type="submit" value="Submit" class="complaint-submit-btn">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+    <!-- ===== Complaint List ===== -->
+    <table class="complaint-list-table">
         <tr>
-            <td>SI NO</td>
-            <td>Title</td>
-            <td>Content</td>
-            <td>Date</td>
-            <td>Reply</td>
-            <td>Action</td>
+            <th>SI No</th>
+            <th>Title</th>
+            <th>Content</th>
+            <th>Date</th>
+            <th>Reply</th>
+            <th>Action</th>
         </tr>
+
         {% for i in complaintdata %}
         <tr>
-            <td>{{forloop.counter}}</td>
-            <td>{{i.complaint_title}}</td>
-            <td>{{i.complaint_content}}</td>
-            <td>{{i.complaint_date}}</td>
-            <td>{{i.complaint_reply}}</td>
-            <td><a href="{% url 'User:DeleteComplaint' i.id %}">Delete</a></td>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ i.complaint_title }}</td>
+            <td>{{ i.complaint_content }}</td>
+            <td>{{ i.complaint_date }}</td>
+            <td>{{ i.complaint_reply }}</td>
+            <td>
+                <a href="{% url 'User:DeleteComplaint' i.id %}" class="complaint-delete-link">
+                    Delete
+                </a>
+            </td>
         </tr>
         {% endfor %}
     </table>
-</body>
+
+</div>
+
 {% if msg %}
 <script>
-    alert("{{msg}}")
-    window.location = "{% url 'User:Complaint' %}"
+    alert("{{ msg }}");
+    window.location = "{% url 'User:Complaint' %}";
 </script>
 {% endif %}
-</html>
+
+
+{% endblock %}

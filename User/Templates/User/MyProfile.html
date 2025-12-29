@@ -1,44 +1,125 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Profile</title>
-</head>
-<body>
-    <form action="" method="POST">
-        <table border="2">
-            <tr>
-                <td colspan="2"><img src="{{user.user_photo.url}}" alt="" width="150"></td>
-            </tr>
+{% extends 'User/Header.html' %}
+
+{% block content %}
+
+<style>
+    .profile-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 30px;
+    }
+
+    .profile-card {
+        width: 500px;
+        background: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        padding: 20px;
+        font-family: Arial, sans-serif;
+    }
+
+    .profile-card h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #0a1f44; /* dark blue */
+    }
+
+    .profile-img {
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+    .profile-img img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        border: 3px solid #0a1f44; /* dark blue */
+        object-fit: cover;
+    }
+
+    .profile-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .profile-table td {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+        font-size: 14px;
+    }
+
+    .profile-table td:first-child {
+        font-weight: bold;
+        width: 35%;
+        color: #333;
+    }
+
+    .profile-actions {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .profile-actions a {
+        text-decoration: none;
+        padding: 8px 18px;
+        background-color: #0a1f44; /* dark blue */
+        color: #ffffff;
+        border-radius: 5px;
+        margin: 0 6px;
+        display: inline-block;
+        font-size: 14px;
+    }
+
+    .profile-actions a:hover {
+        background-color: #081a36; /* darker hover */
+    }
+</style>
+
+<div class="profile-container">
+    <div class="profile-card">
+
+        <h2>My Profile</h2>
+
+        <div class="profile-img">
+            <img src="{{ user.user_photo.url }}" alt="Profile Photo">
+        </div>
+
+        <table class="profile-table">
             <tr>
                 <td>Name</td>
-                <td>{{user.user_name}}</td>
+                <td>{{ user.user_name }}</td>
             </tr>
             <tr>
                 <td>Email</td>
-                <td>{{user.user_email}}</td>
+                <td>{{ user.user_email }}</td>
             </tr>
             <tr>
                 <td>Contact</td>
-                <td>{{user.user_contact}}</td>
+                <td>{{ user.user_contact }}</td>
             </tr>
             <tr>
                 <td>Address</td>
-                <td>{{user.user_address}}</td>
+                <td>{{ user.user_address }}</td>
             </tr>
             <tr>
                 <td>District</td>
-                <td>{{user.place.district.district_name}}</td>
+                <td>{{ user.place.district.district_name }}</td>
             </tr>
             <tr>
                 <td>Place</td>
-                <td>{{user.place.place_name}}</td>
-            </tr>
-            <tr>
-                <td colspan="2" align="center"><a href="{% url 'User:EditProfile' %}">Edit Profile</a>|<a href="{% url 'User:ChangePassword' %}">Change Password</a></td>
+                <td>{{ user.place.place_name }}</td>
             </tr>
         </table>
-    </form>
-</body>
-</html>
+
+        <div class="profile-actions">
+            <a href="{% url 'User:EditProfile' %}">Edit Profile</a>
+            <a href="{% url 'User:ChangePassword' %}">Change Password</a>
+        </div>
+
+    </div>
+</div>
+
+<br><br><br>
+
+{% endblock %}

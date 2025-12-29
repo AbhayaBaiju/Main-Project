@@ -1,44 +1,122 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Profile</title>
-</head>
-<body>
-    <form action="" method="POST">
-        <table border="2">
-            <tr>
-                <td colspan="2"><img src="{{jobprovider.jobprovider_photo.url}}" alt=""></td>
-            </tr>
+{% extends 'JobProvider/Header.html' %}
+{% block content %}
+
+<style>
+    /* ===== Profile Page Wrapper ===== */
+    .jp-profile-wrapper {
+        display: flex;
+        justify-content: center;
+        padding: 20px 0;
+        font-family: Arial, sans-serif;
+    }
+
+    /* ===== Profile Card ===== */
+    .jp-profile-card {
+        width: 520px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        padding: 20px;
+    }
+
+    /* ===== Profile Image ===== */
+    .jp-profile-image {
+        text-align: center;
+        padding-bottom: 15px;
+    }
+
+    .jp-profile-image img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #0a1f44;
+    }
+
+    /* ===== Profile Table ===== */
+    .jp-profile-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .jp-profile-table td {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .jp-profile-table td:first-child {
+        font-weight: bold;
+        color: #333;
+        width: 35%;
+    }
+
+    /* ===== Action Buttons ===== */
+    .jp-profile-actions {
+        text-align: center;
+        padding-top: 20px;
+    }
+
+    .jp-profile-btn {
+        text-decoration: none;
+        background-color: #0a1f44;
+        color: #ffffff;
+        padding: 8px 16px;
+        border-radius: 6px;
+        margin: 0 5px;
+        display: inline-block;
+        transition: background-color 0.3s ease;
+    }
+
+    .jp-profile-btn:hover {
+        background-color: #081a36;
+        color: #ffffff;
+    }
+</style>
+
+<div class="jp-profile-wrapper">
+    <div class="jp-profile-card">
+
+        <div class="jp-profile-image">
+            <img src="{{ jobprovider.jobprovider_photo.url }}" alt="Profile Photo">
+        </div>
+
+        <table class="jp-profile-table">
             <tr>
                 <td>Name</td>
-                <td>{{jobprovider.jobprovider_name}}</td>
+                <td>{{ jobprovider.jobprovider_name }}</td>
             </tr>
             <tr>
                 <td>Email</td>
-                <td>{{jobprovider.jobprovider_email}}</td>
+                <td>{{ jobprovider.jobprovider_email }}</td>
             </tr>
             <tr>
                 <td>Contact</td>
-                <td>{{jobprovider.jobprovider_contact}}</td>
+                <td>{{ jobprovider.jobprovider_contact }}</td>
             </tr>
             <tr>
                 <td>Address</td>
-                <td>{{jobprovider.jobprovider_address}}</td>
+                <td>{{ jobprovider.jobprovider_address }}</td>
             </tr>
             <tr>
                 <td>District</td>
-                <td>{{jobprovider.place.district.district_name}}</td>
+                <td>{{ jobprovider.place.district.district_name }}</td>
             </tr>
             <tr>
                 <td>Place</td>
-                <td>{{jobprovider.place.place_name}}</td>
-            </tr>
-            <tr>
-                <td colspan="2" align="center"><a href="{% url 'JobProvider:EditProfile' %}">Edit Profile</a>|<a href="{% url 'JobProvider:ChangePassword' %}">Change Password</a></td>
+                <td>{{ jobprovider.place.place_name }}</td>
             </tr>
         </table>
-    </form>
-</body>
-</html>
+
+        <div class="jp-profile-actions">
+            <a href="{% url 'JobProvider:EditProfile' %}" class="jp-profile-btn">
+                Edit Profile
+            </a>
+            <a href="{% url 'JobProvider:ChangePassword' %}" class="jp-profile-btn">
+                Change Password
+            </a>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

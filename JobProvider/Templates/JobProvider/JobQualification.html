@@ -1,47 +1,179 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Job Qualification</title>
-</head>
-<body>
-    <form action="" method="POST">
-        {% csrf_token %}
-        <table border="2">
-            <tr>
-                <td>Qualification</td>
-                <td><select name="sel_qualification" required id="sel_qualification">
-                    <option value="">-----Select------</option>
-                    {% for i in qualificationdata %}
-                    <option value="{{i.id}}">{{i.qualification_name}}</option>
-                    {% endfor %}
-                </select></td>
-            </tr>
-            <tr>
-                <td colspan="2" align="center"><input type="submit" value="Submit"></td>
-            </tr>
-        </table>
-    </form>
-    <table border="2">
+{% extends 'JobProvider/Header.html' %}
+{% block content %}
+
+<style>
+    /* ===== Page Wrapper ===== */
+    .jp-qual-wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 30px;
+        font-family: Arial, sans-serif;
+    }
+
+    /* ===== Qualification Card ===== */
+    .jp-qual-card {
+        width: 450px;
+        background-color: #ffffff;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        margin-bottom: 40px;
+    }
+
+    .jp-qual-card h2 {
+        text-align: center;
+        color: #0a1f44;
+        margin-bottom: 20px;
+    }
+
+    /* ===== Form Table ===== */
+    .jp-qual-form-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .jp-qual-form-table td {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .jp-qual-form-table td:first-child {
+        width: 35%;
+        font-weight: bold;
+    }
+
+    /* ===== Select Box ===== */
+    .jp-qual-select {
+        width: 100%;
+        padding: 7px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+    }
+
+    .jp-qual-select:focus {
+        outline: none;
+        border-color: #0a1f44;
+    }
+
+    /* ===== Submit Button ===== */
+    .jp-qual-btn {
+        background-color: #0a1f44;
+        color: white;
+        border: none;
+        padding: 8px 22px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .jp-qual-btn:hover {
+        background-color: #081a36;
+    }
+
+    /* ===== Qualification List ===== */
+    .jp-qual-table-wrapper {
+        width: 70%;
+        margin: auto;
+    }
+
+    .jp-qual-table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #ffffff;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+    }
+
+    .jp-qual-table th {
+        background-color: #0a1f44;
+        color: white;
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .jp-qual-table td {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+        font-size: 14px;
+        text-align: center;
+    }
+
+    .jp-qual-table tr:hover {
+        background-color: #f2f6ff;
+    }
+
+    /* ===== Action Link ===== */
+    .jp-qual-action a {
+        text-decoration: none;
+        color: #0a1f44;
+        font-weight: bold;
+    }
+
+    .jp-qual-action a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<!-- ===== Add Qualification Form ===== -->
+<div class="jp-qual-wrapper">
+    <div class="jp-qual-card">
+        <h2>Add Job Qualification</h2>
+
+        <form action="" method="POST">
+            {% csrf_token %}
+            <table class="jp-qual-form-table">
+                <tr>
+                    <td>Qualification</td>
+                    <td>
+                        <select name="sel_qualification" class="jp-qual-select" required>
+                            <option value="">----- Select -----</option>
+                            {% for i in qualificationdata %}
+                            <option value="{{ i.id }}">{{ i.qualification_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <input type="submit" value="Submit" class="jp-qual-btn">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+
+<!-- ===== Qualification List ===== -->
+<div class="jp-qual-table-wrapper">
+    <table class="jp-qual-table">
         <tr>
-            <td>SI NO</td>
-            <td>Job Qualification</td>
-            <td>Action</td>
+            <th>#</th>
+            <th>Job Qualification</th>
+            <th>Action</th>
         </tr>
+
         {% for i in jobqualificationdata %}
         <tr>
-            <td>{{forloop.counter}}</td>
-            <td>{{i.qualification_id.qualification_name}}</td>
-            <td><a href="{% url 'JobProvider:DeleteJobqualification' i.id %}">Delete</a></td>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ i.qualification_id.qualification_name }}</td>
+            <td class="jp-qual-action">
+                <a href="{% url 'JobProvider:DeleteJobqualification' i.id %}">
+                    Delete
+                </a>
+            </td>
         </tr>
         {% endfor %}
     </table>
-</body>
+</div>
+
 {% if msg %}
 <script>
-    alert("{{msg}}")
-    window.location = "{% url 'JobProvider:Job' %}"
+    alert("{{ msg }}");
+    window.location = "{% url 'JobProvider:Job' %}";
 </script>
 {% endif %}
-</html>
+
+
+
+{% endblock %}

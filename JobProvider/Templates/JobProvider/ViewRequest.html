@@ -1,49 +1,157 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Request</title>
-</head>
-<body>
-    <table border="2">
-        <tr>
-            <td>SI NO</td>
-            <td>Job Details</td>
-            <td>User Details</td>
-            <td>File</td>
-            <td>Date</td>
-            <td>Action</td>
-        </tr>
-        {% for i in viewrequestdata %}
-        <tr>
-            <td>{{forloop.counter}}</td>
-            <td>{{i.job_id.job_title}} <br>
-                {{i.job_id.job_content}}<br>
-                {{i.job_id.job_requriedage}}<br>
-                {{i.job_id.job_experience}}<br>
-                {{i.job_id.job_salary}}
-            </td>
-            <td>{{i.user_id.user_name}}<br>
-                {{i.user_id.user_email}}<br>
-                {{i.user_id.user_contact}}<br>
-                {{i.user_id.user_address}}<br>
-            </td>
-            <td>{{i.request_file}}</td>
-            <td>{{i.request_date}}</td>
-            <td>{% if i.request_status == 0 %}<a href="{% url 'JobProvider:Accept' i.id %}">Accept</a> | <a href="{% url 'JobProvider:Reject' i.id %}">Reject</a>
-                {% elif i.request_status == 1 %}Accepted
-                {% elif i.request_status == 2 %}Rejected
-                {% endif %}
-            </td>
-        </tr>
-        {% endfor %}
+{% extends 'JobProvider/Header.html' %}
+{% block content %}
+
+<style>
+    /* ===== Main Wrapper ===== */
+    .jp-request-wrapper {
+        width: 95%;
+        margin: 30px auto;
+        font-family: Arial, sans-serif;
+    }
+
+    /* ===== Page Title ===== */
+    .jp-request-title {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #0a1f44;
+    }
+
+    /* ===== Request Table ===== */
+    .jp-request-table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #ffffff;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .jp-request-table th {
+        background-color: #0a1f44;
+        color: #ffffff;
+        padding: 10px;
+        font-size: 14px;
+        text-align: center;
+    }
+
+    .jp-request-table td {
+        padding: 10px;
+        font-size: 14px;
+        vertical-align: top;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .jp-request-table tr:hover {
+        background-color: #f2f6ff;
+    }
+
+    /* ===== Info Blocks ===== */
+    .jp-request-job,
+    .jp-request-user {
+        line-height: 1.6;
+    }
+
+    /* ===== File Column ===== */
+    .jp-request-file {
+        text-align: center;
+        font-weight: bold;
+        color: #0a1f44;
+    }
+
+    /* ===== Status Text ===== */
+    .jp-status-accepted {
+        color: #27ae60;
+        font-weight: bold;
+    }
+
+    .jp-status-rejected {
+        color: #c0392b;
+        font-weight: bold;
+    }
+
+    /* ===== Action Buttons ===== */
+    .jp-request-actions a {
+        display: inline-block;
+        margin: 4px;
+        padding: 6px 12px;
+        background-color: #0a1f44;
+        color: #ffffff;
+        text-decoration: none;
+        border-radius: 4px;
+        font-size: 13px;
+    }
+
+    .jp-request-actions a:hover {
+        background-color: #081a36;
+    }
+</style>
+
+<div class="jp-request-wrapper">
+
+    <h2 class="jp-request-title">View Job Requests</h2>
+
+    <table class="jp-request-table">
+        <thead>
+            <tr>
+                <th>SI NO</th>
+                <th>Job Details</th>
+                <th>User Details</th>
+                <th>File</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for i in viewrequestdata %}
+            <tr>
+                <td align="center">{{ forloop.counter }}</td>
+
+                <td class="jp-request-job">
+                    <strong>{{ i.job_id.job_title }}</strong><br>
+                    {{ i.job_id.job_content }}<br>
+                    Age: {{ i.job_id.job_requriedage }}<br>
+                    Exp: {{ i.job_id.job_experience }}<br>
+                    Salary: {{ i.job_id.job_salary }}
+                </td>
+
+                <td class="jp-request-user">
+                    <strong>{{ i.user_id.user_name }}</strong><br>
+                    {{ i.user_id.user_email }}<br>
+                    {{ i.user_id.user_contact }}<br>
+                    {{ i.user_id.user_address }}
+                </td>
+
+                <td class="jp-request-file">
+                    {{ i.request_file }}
+                </td>
+
+                <td align="center">
+                    {{ i.request_date }}
+                </td>
+
+                <td class="jp-request-actions" align="center">
+                    {% if i.request_status == 0 %}
+                        <a href="{% url 'JobProvider:Accept' i.id %}">Accept</a>
+                        <a href="{% url 'JobProvider:Reject' i.id %}">Reject</a>
+                    {% elif i.request_status == 1 %}
+                        <span class="jp-status-accepted">Accepted</span>
+                    {% elif i.request_status == 2 %}
+                        <span class="jp-status-rejected">Rejected</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
     </table>
-</body>
+
+</div>
+
 {% if msg %}
 <script>
     alert("{{msg}}")
     window.location = "{% url 'JobProvider:ViewRequest' %}"
 </script>
 {% endif %}
-</html>
+
+
+
+{% endblock %}

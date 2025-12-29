@@ -1,41 +1,161 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Profile</title>
-</head>
-<body>
-    <form action="" method="POST">
-        {% csrf_token %}
-        <table border="2">
-            <tr>
-                <td>Name</td>
-                <td><input required type="text" name="txt_name" title="Name Allows Only Alphabets,Spaces and First Letter Must Be Capital Letter" pattern="^[A-Z]+[a-zA-Z ]*$"  value="{{jobprovider.jobprovider_name}}"></td>
-            </tr>
-            <tr>
-                <td>Email</td>
-                <td><input type="email" required name="txt_email" value="{{jobprovider.jobprovider_email}}"></td>
-            </tr>
-            <tr>
-                <td>Contact</td>
-                <td><input type="text" required name="txt_contact" pattern="[7-9]{1}[0-9]{9}" 
-                title="Phone number with 7-9 and remaing 9 digit with 0-9" value="{{jobprovider.jobprovider_contact}}"></td>
-            </tr>
-            <tr>
-                <td>Address</td>
-                <td><textarea name="txt_address" required >{{jobprovider.jobprovider_address}}</textarea></td>
-            </tr>
-            <tr>
-                <td colspan="2" align="center"><input type="submit" value="Update"></td>
-            </tr>
-        </table>
-    </form>
-</body>
-</html>
+{% extends 'JobProvider/Header.html' %}
+{% block content %}
+
+<style>
+    /* ===== Edit Profile Wrapper ===== */
+    .jp-edit-wrapper {
+        display: flex;
+        justify-content: center;
+        padding: 20px 0;
+        font-family: Arial, sans-serif;
+    }
+
+    /* ===== Edit Profile Card ===== */
+    .jp-edit-card {
+        width: 500px;
+        background-color: #ffffff;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .jp-edit-card h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #0a1f44;
+    }
+
+    /* ===== Edit Profile Table ===== */
+    .jp-edit-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .jp-edit-table td {
+        padding: 10px;
+        vertical-align: middle;
+    }
+
+    .jp-edit-table td:first-child {
+        font-weight: bold;
+        color: #333;
+        width: 35%;
+    }
+
+    /* ===== Input Fields ===== */
+    .jp-edit-input,
+    .jp-edit-textarea {
+        width: 100%;
+        padding: 8px;
+        font-size: 14px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+    .jp-edit-textarea {
+        resize: none;
+        height: 70px;
+    }
+
+    .jp-edit-input:focus,
+    .jp-edit-textarea:focus {
+        outline: none;
+        border-color: #0a1f44;
+    }
+
+    /* ===== Submit Button ===== */
+    .jp-edit-btn {
+        background-color: #0a1f44;
+        color: #ffffff;
+        border: none;
+        padding: 8px 20px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 15px;
+        transition: background-color 0.3s ease;
+    }
+
+    .jp-edit-btn:hover {
+        background-color: #081a36;
+    }
+</style>
+
+<div class="jp-edit-wrapper">
+    <div class="jp-edit-card">
+
+        <h2>Edit Profile</h2>
+
+        <form action="" method="POST">
+            {% csrf_token %}
+
+            <table class="jp-edit-table">
+                <tr>
+                    <td>Name</td>
+                    <td>
+                        <input
+                            type="text"
+                            name="txt_name"
+                            class="jp-edit-input"
+                            required
+                            pattern="^[A-Z]+[a-zA-Z ]*$"
+                            title="Name Allows Only Alphabets, Spaces and First Letter Must Be Capital"
+                            value="{{ jobprovider.jobprovider_name }}">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Email</td>
+                    <td>
+                        <input
+                            type="email"
+                            name="txt_email"
+                            class="jp-edit-input"
+                            required
+                            value="{{ jobprovider.jobprovider_email }}">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Contact</td>
+                    <td>
+                        <input
+                            type="text"
+                            name="txt_contact"
+                            class="jp-edit-input"
+                            required
+                            pattern="[7-9]{1}[0-9]{9}"
+                            title="Phone number must start with 7-9 and contain 10 digits"
+                            value="{{ jobprovider.jobprovider_contact }}">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Address</td>
+                    <td>
+                        <textarea
+                            name="txt_address"
+                            class="jp-edit-textarea"
+                            required>{{ jobprovider.jobprovider_address }}</textarea>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2" align="center">
+                        <input type="submit" value="Update" class="jp-edit-btn">
+                    </td>
+                </tr>
+            </table>
+
+        </form>
+
+    </div>
+</div>
+
 {% if msg %}
 <script>
-    alert("{{msg}}")
-    window.location="{% url 'JobProvider:MyProfile' %}"
+    alert("{{ msg }}");
+    window.location = "{% url 'JobProvider:MyProfile' %}";
 </script>
 {% endif %}
+
+{% endblock %}

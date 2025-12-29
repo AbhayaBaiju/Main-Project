@@ -1,66 +1,217 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Examination</title>
-</head>
-<body>
-    <form action="" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <table border="1" align="center">
-          <tr>
-            <td>Name</td>
-            <td><input required type="text" name="txt_name" title="Name Allows Only Alphabets,Spaces and First Letter Must Be Capital Letter" pattern="^[A-Z]+[a-zA-Z ]*$"/></td>
-          </tr>
-          <tr>
-            <td>Total Mark</td>
-            <td><input type="text" name="txt_qno" required id="txt_qno"></td>
-          </tr>
-          <!-- <tr>
-            <td>Question No</td>
-            <td><input type="text" name="txt_no" required id="txt_no"></td>
-          </tr> -->
-          <tr>
-            <td>From Time</td>
-            <td><input type="time" name="txt_ftime" required id=""></td>
-          </tr>
+{% extends 'JobProvider/Header.html' %}
+{% block content %}
 
-          <tr>
-            <td>To Time</td>
-            <td><input type="time" name="txt_ttime" required id=""></td>
-          </tr>
-          <tr>
-            <td><input type="submit" value="Submit"></td>
-            <td><input type="submit" value="Cancel"></td>
-          </tr>   
-        </table>
-    </form>
-    <table border="1">
-      <tr>
-          <th>#</th>
-          <th>Name</th>  
-          <th>Total Mark</th>
-          <th>Start Time</th>
-          <th>Time</th>
-          <th>Action</th>
+<style>
+    /* ===== Examination Page Wrapper ===== */
+    .jp-exam-wrapper {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-family: Arial, sans-serif;
+        padding: 20px 0;
+    }
 
-      </tr>
-          {% for i in result %}
-          <tr>
-           <td>{{forloop.counter}}</td>
-           <td>{{i.examination_name}}</td> 
-           <td>{{i.examination_mark}}</td>    
-           <td>{{i.start_time}}</td> 
-           <td>{{i.examination_time}}</td> 
-           <td><a href="{% url 'JobProvider:addquestions' i.id %}">Add Questions</a>
-          </td>
-      </tr>
-      {% endfor %}
-  </table>
-    
+    /* ===== Exam Form Card ===== */
+    .jp-exam-card {
+        width: 500px;
+        background-color: #ffffff;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        margin-bottom: 30px;
+    }
 
-          
-    
-</body>
-</html>
+    .jp-exam-card h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #0a1f44;
+    }
+
+    /* ===== Form Table ===== */
+    .jp-exam-form-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .jp-exam-form-table td {
+        padding: 10px;
+    }
+
+    .jp-exam-form-table td:first-child {
+        font-weight: bold;
+        color: #333;
+        width: 40%;
+    }
+
+    /* ===== Input Fields ===== */
+    .jp-exam-input {
+        width: 100%;
+        padding: 8px;
+        font-size: 14px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+    .jp-exam-input:focus {
+        outline: none;
+        border-color: #0a1f44;
+    }
+
+    /* ===== Buttons ===== */
+    .jp-exam-btn {
+        background-color: #0a1f44;
+        color: #ffffff;
+        border: none;
+        padding: 8px 18px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        margin: 0 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    .jp-exam-btn:hover {
+        background-color: #081a36;
+    }
+
+    .jp-exam-cancel {
+        background-color: #6c757d;
+    }
+
+    .jp-exam-cancel:hover {
+        background-color: #5a6268;
+    }
+
+    /* ===== Exam List Table ===== */
+    .jp-exam-table {
+        width: 90%;
+        border-collapse: collapse;
+        background-color: #ffffff;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .jp-exam-table th {
+        background-color: #0a1f44;
+        color: #ffffff;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .jp-exam-table td {
+        padding: 10px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .jp-exam-table tr:hover {
+        background-color: #f1f4f9;
+    }
+
+    /* ===== Action Link ===== */
+    .jp-exam-link {
+        text-decoration: none;
+        color: #0a1f44;
+        font-weight: bold;
+    }
+
+    .jp-exam-link:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<div class="jp-exam-wrapper">
+
+    <!-- ===== Add Examination Form ===== -->
+    <div class="jp-exam-card">
+        <h2>Add Examination</h2>
+
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <table class="jp-exam-form-table">
+                <tr>
+                    <td>Name</td>
+                    <td>
+                        <input
+                            type="text"
+                            name="txt_name"
+                            class="jp-exam-input"
+                            required
+                            pattern="^[A-Z]+[a-zA-Z ]*$"
+                            title="Name Allows Only Alphabets, Spaces and First Letter Must Be Capital">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Total Mark</td>
+                    <td>
+                        <input
+                            type="text"
+                            name="txt_qno"
+                            class="jp-exam-input"
+                            required>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>From Time</td>
+                    <td>
+                        <input
+                            type="time"
+                            name="txt_ftime"
+                            class="jp-exam-input"
+                            required>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>To Time</td>
+                    <td>
+                        <input
+                            type="time"
+                            name="txt_ttime"
+                            class="jp-exam-input"
+                            required>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2" align="center">
+                        <input type="submit" value="Submit" class="jp-exam-btn">
+                        <input type="reset" value="Cancel" class="jp-exam-btn jp-exam-cancel">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+    <!-- ===== Examination List ===== -->
+    <table class="jp-exam-table">
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Total Mark</th>
+            <th>Start Time</th>
+            <th>Duration</th>
+            <th>Action</th>
+        </tr>
+
+        {% for i in result %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ i.examination_name }}</td>
+            <td>{{ i.examination_mark }}</td>
+            <td>{{ i.start_time }}</td>
+            <td>{{ i.examination_time }}</td>
+            <td>
+                <a href="{% url 'JobProvider:addquestions' i.id %}" class="jp-exam-link">
+                    Add Questions
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</div>
+
+{% endblock %}

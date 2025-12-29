@@ -1,43 +1,121 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Examiner</title>
-</head>
-<body>
-<table border="1" cellpadding="10">
-    <thead>
-        <tr>
-            <th>#</th>
-            <th>User Name</th>
-            <th>Email</th>
-            <th>Contact</th>
-            <th>Total Mark</th>
-            <th>Action</th>
-        </tr>
-    </thead>
+{% extends 'JobProvider/Header.html' %}
+{% block content %}
 
-    <tbody>
-        {% for user in examiners %}
-        <tr>
-            <td>{{ forloop.counter }}</td>
-            <td>{{ user.user.user_name }}</td>
-            <td>{{ user.user.user_email }}</td>
-            <td>{{ user.user.user_contact }}</td>
-            {% if user.total_marks == 0 %}
-            <td>Not Available</td>
-            {% else %}x
-            <td>{{ user.total_marks }}</td>
-            {% endif %}
-            <td>
-                <a href="{% url 'JobProvider:ViewResult' user.examination.id user.user.id %}">View Result</a>
-                <a href="{% url 'JobProvider:SendMail' user.user.id %}">Send Mail</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<style>
+    /* ===== Main Wrapper ===== */
+    .jp-examiner-wrapper {
+        width: 95%;
+        margin: 30px auto;
+        font-family: Arial, sans-serif;
+    }
 
-</body>
-</html>
+    /* ===== Page Title ===== */
+    .jp-examiner-title {
+        text-align: center;
+        color: #0a1f44;
+        margin-bottom: 20px;
+    }
+
+    /* ===== Examiner Table ===== */
+    .jp-examiner-table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #ffffff;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .jp-examiner-table th {
+        background-color: #0a1f44;
+        color: #ffffff;
+        padding: 10px;
+        font-size: 14px;
+        text-align: center;
+    }
+
+    .jp-examiner-table td {
+        padding: 10px;
+        font-size: 14px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .jp-examiner-table tr:hover {
+        background-color: #f2f6ff;
+    }
+
+    /* ===== Status Text ===== */
+    .jp-examiner-na {
+        color: #c0392b;
+        font-weight: bold;
+    }
+
+    .jp-examiner-mark {
+        color: #27ae60;
+        font-weight: bold;
+    }
+
+    /* ===== Action Links ===== */
+    .jp-examiner-actions a {
+        display: inline-block;
+        margin: 4px;
+        padding: 6px 10px;
+        background-color: #0a1f44;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        font-size: 13px;
+    }
+
+    .jp-examiner-actions a:hover {
+        background-color: #081a36;
+    }
+</style>
+
+<div class="jp-examiner-wrapper">
+
+    <h2 class="jp-examiner-title">View Examiner</h2>
+
+    <table class="jp-examiner-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>User Name</th>
+                <th>Email</th>
+                <th>Contact</th>
+                <th>Total Mark</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for user in examiners %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ user.user.user_name }}</td>
+                <td>{{ user.user.user_email }}</td>
+                <td>{{ user.user.user_contact }}</td>
+
+                {% if user.total_marks == 0 %}
+                    <td class="jp-examiner-na">Not Available</td>
+                {% else %}
+                    <td class="jp-examiner-mark">{{ user.total_marks }}</td>
+                {% endif %}
+
+                <td class="jp-examiner-actions">
+                    <a href="{% url 'JobProvider:ViewResult' user.examination.id user.user.id %}">
+                        View Result
+                    </a>
+                    <a href="{% url 'JobProvider:SendMail' user.user.id %}">
+                        Send Mail
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+<br><br><br><br><br><br><br><br>
+
+{% endblock %}

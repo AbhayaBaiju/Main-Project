@@ -1,39 +1,132 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Job</title>
-</head>
-<body>
-    <table border="2">
-        <tr>
-            <td>SI NO</td>
-            <td>Title</td>
-            <td>Content</td>
-            <td>Requried Age</td>
-            <td>Experience</td>
-            <td>Salary</td>
-            <td>Last Date</td>
-            <td>Date</td>
-            <td>Job Provider</td>
-            <td>Action</td>
-        </tr>
-        {% for i in jobdata %}
-        <tr>
-            <td>{{forloop.counter}}</td>
-            <td>{{i.job_title}}</td>
-            <td>{{i.job_content}}</td>
-            <td>{{i.job_requriedage}}</td>
-            <td>{{i.job_experience}}</td>
-            <td>{{i.job_salary}}</td>
-            <td>{{i.job_lastdate}}</td>
-            <td>{{i.job_date}}</td>
-            <td>{{i.jobprovider_id.jobprovider_name}}</td>
-            <td>
-                <a href="{% url 'User:Request' i.id %}">Request</a></td>
-        </tr>
-        {% endfor %}
-    </table>
-</body>
-</html>
+{% extends 'User/Header.html' %}
+{% block content %}
+
+<style>
+    /* ===== View Job Page Styles ===== */
+
+    .viewjob-wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 40px;
+        font-family: Arial, sans-serif;
+    }
+
+    .viewjob-card {
+        width: 95%;
+        max-width: 1200px;
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .viewjob-card h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #0a1f44; /* dark blue */
+    }
+
+    .viewjob-table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+    }
+
+    .viewjob-table th, .viewjob-table td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        vertical-align: top;
+    }
+
+    .viewjob-table th {
+        background-color: #0a1f44; /* dark blue */
+        color: #fff;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .viewjob-table td {
+        color: #333;
+    }
+
+    .request-btn {
+        display: inline-block;
+        padding: 5px 10px;
+        background-color: #0a1f44; /* dark blue */
+        color: #fff;
+        text-decoration: none;
+        border-radius: 4px;
+        font-size: 13px;
+    }
+
+    .request-btn:hover {
+        background-color: #081a36; /* darker hover */
+    }
+
+    @media screen and (max-width: 1024px) {
+        .viewjob-table th, .viewjob-table td {
+            font-size: 12px;
+            padding: 6px;
+        }
+
+        .request-btn {
+            font-size: 12px;
+            padding: 4px 8px;
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        .viewjob-card {
+            width: 100%;
+            padding: 15px;
+        }
+
+        .viewjob-table th, .viewjob-table td {
+            font-size: 11px;
+            padding: 5px;
+        }
+    }
+</style>
+
+<div class="viewjob-wrapper">
+    <div class="viewjob-card">
+
+        <h2>Available Jobs</h2>
+
+        <table class="viewjob-table">
+            <tr>
+                <th>SI NO</th>
+                <th>Title</th>
+                <th>Content</th>
+                <th>Required Age</th>
+                <th>Experience</th>
+                <th>Salary</th>
+                <th>Last Date</th>
+                <th>Date</th>
+                <th>Job Provider</th>
+                <th>Action</th>
+            </tr>
+
+            {% for i in jobdata %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ i.job_title }}</td>
+                <td>{{ i.job_content }}</td>
+                <td>{{ i.job_requriedage }}</td>
+                <td>{{ i.job_experience }}</td>
+                <td>{{ i.job_salary }}</td>
+                <td>{{ i.job_lastdate }}</td>
+                <td>{{ i.job_date }}</td>
+                <td>{{ i.jobprovider_id.jobprovider_name }}</td>
+                <td>
+                    <a href="{% url 'User:Request' i.id %}" class="request-btn">Request</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+
+    </div>
+</div>
+<br><br><br><br><br><br><br><br>
+{% endblock %}

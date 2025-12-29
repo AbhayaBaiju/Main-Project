@@ -1105,7 +1105,7 @@ section,
   margin: 0;
   width: 72px;
   height: 72px;
-  background: var(--accent-color);
+  background: white;
   color: var(--contrast-color);
   border: 6px solid var(--contrast-color);
   border-radius: 50px;

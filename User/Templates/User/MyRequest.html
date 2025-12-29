@@ -1,41 +1,156 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Request</title>
-</head>
-<body>
-    <table border="2">
-        <tr>
-            <td>SI NO</td>
-            <td>Job Details</td>
-            <td>Job Provider Details</td>
-            <td>Date</td>
-            <td>Status</td>
-        </tr>
-        {% for i in reqdata %}
-        <tr>
-            <td>{{forloop.counter}}</td>
-            <td>{{i.job_id.job_title}} <br> 
-                {{i.job_id.job_content}} <br>
-                {{i.job_id.job_requriedage}} <br>
-                {{i.job_id.job_experience}} <br>
-                {{i.job_id.job_salary}} 
-            </td>
-            <td>{{i.job_id.jobprovider_id.jobprovider_name}} <br>
-                {{i.job_id.jobprovider_id.jobprovider_email}} <br>
-                {{i.job_id.jobprovider_id.jobprovider_contact}} <br>
-                {{i.job_id.jobprovider_id.jobprovider_address}} <br>
-            </td>
-            <td>{{i.job_id.job_date}}</td>
-            <td>{% if i.request_status == 0 %}Pending
-                {% elif i.request_status == 1 %}Accepted<a href="{% url 'User:ViewExam' i.job_id.id %}">View Exam</a>
-                {% elif i.request_status == 2 %}Rejected
-                {% endif %}
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
-</body>
-</html>
+{% extends 'User/Header.html' %}
+{% block content %}
+
+<style>
+    /* ===== My Request Page Styles ===== */
+
+    .myrequest-wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 40px;
+        font-family: Arial, sans-serif;
+    }
+
+    .myrequest-card {
+        width: 95%;
+        max-width: 1000px;
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .myrequest-card h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #0a1f44; /* dark blue */
+    }
+
+    .myrequest-table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+    }
+
+    .myrequest-table th, .myrequest-table td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        vertical-align: top;
+    }
+
+    .myrequest-table th {
+        background-color: #0a1f44; /* dark blue */
+        color: white;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .myrequest-table td {
+        color: #333;
+    }
+
+    .status {
+        font-weight: bold;
+        padding: 4px 8px;
+        border-radius: 4px;
+        text-align: center;
+        display: inline-block;
+    }
+
+    .status-pending {
+        background-color: #ffc107; /* yellow */
+        color: #000;
+    }
+
+    .status-accepted {
+        background-color: #198754; /* green */
+        color: #fff;
+    }
+
+    .status-rejected {
+        background-color: #dc3545; /* red */
+        color: #fff;
+    }
+
+    .view-exam-btn {
+        display: inline-block;
+        margin-top: 5px;
+        padding: 4px 8px;
+        background-color: #0a1f44; /* dark blue */
+        color: #fff;
+        text-decoration: none;
+        border-radius: 4px;
+        font-size: 13px;
+    }
+
+    .view-exam-btn:hover {
+        background-color: #081a36; /* darker hover */
+    }
+
+    @media screen and (max-width: 768px) {
+        .myrequest-card {
+            width: 100%;
+            padding: 15px;
+        }
+
+        .myrequest-table td, .myrequest-table th {
+            font-size: 12px;
+            padding: 8px;
+        }
+
+        .view-exam-btn {
+            font-size: 12px;
+            padding: 3px 6px;
+        }
+    }
+</style>
+
+<div class="myrequest-wrapper">
+    <div class="myrequest-card">
+
+        <h2>My Requests</h2>
+
+        <table class="myrequest-table">
+            <tr>
+                <th>SI NO</th>
+                <th>Job Details</th>
+                <th>Job Provider Details</th>
+                <th>Date</th>
+                <th>Status</th>
+            </tr>
+            {% for i in reqdata %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>
+                    {{ i.job_id.job_title }}<br>
+                    {{ i.job_id.job_content }}<br>
+                    Age: {{ i.job_id.job_requriedage }}<br>
+                    Experience: {{ i.job_id.job_experience }}<br>
+                    Salary: {{ i.job_id.job_salary }}
+                </td>
+                <td>
+                    {{ i.job_id.jobprovider_id.jobprovider_name }}<br>
+                    {{ i.job_id.jobprovider_id.jobprovider_email }}<br>
+                    {{ i.job_id.jobprovider_id.jobprovider_contact }}<br>
+                    {{ i.job_id.jobprovider_id.jobprovider_address }}
+                </td>
+                <td>{{ i.job_id.job_date }}</td>
+                <td>
+                    {% if i.request_status == 0 %}
+                        <span class="status status-pending">Pending</span>
+                    {% elif i.request_status == 1 %}
+                        <span class="status status-accepted">Accepted</span><br>
+                        <a href="{% url 'User:ViewExam' i.job_id.id %}" class="view-exam-btn">View Exam</a>
+                    {% elif i.request_status == 2 %}
+                        <span class="status status-rejected">Rejected</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+
+    </div>
+</div>
+
+{% endblock %}

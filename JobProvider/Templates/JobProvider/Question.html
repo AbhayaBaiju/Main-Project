@@ -1,45 +1,138 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Question</title>
-</head>
-<body>
-    <h1 align="center">Add Questions</h1>
+{% extends 'JobProvider/Header.html' %}
+{% block content %}
+
+<style>
+    /* ===== Page Wrapper ===== */
+    .jp-question-wrapper {
+        width: 90%;
+        margin: 30px auto;
+        font-family: Arial, sans-serif;
+    }
+
+    /* ===== Page Title ===== */
+    .jp-question-title {
+        text-align: center;
+        color: #0a1f44;
+        margin-bottom: 20px;
+    }
+
+    /* ===== Question Form Table ===== */
+    .jp-question-form {
+        width: 50%;
+        margin: 0 auto 30px auto;
+        border-collapse: collapse;
+        background-color: #ffffff;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .jp-question-form td {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    .jp-question-form textarea {
+        width: 100%;
+        height: 90px;
+        padding: 8px;
+        border: 1px solid #999;
+        border-radius: 4px;
+        resize: none;
+    }
+
+    /* ===== Add Button ===== */
+    .jp-question-btn {
+        padding: 8px 30px;
+        background-color: #0a1f44;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    .jp-question-btn:hover {
+        background-color: #081a36;
+    }
+
+    /* ===== Question List Table ===== */
+    .jp-question-table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #ffffff;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .jp-question-table th {
+        background-color: #0a1f44;
+        color: white;
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .jp-question-table td {
+        padding: 10px;
+        font-size: 14px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .jp-question-table tr:hover {
+        background-color: #f2f6ff;
+    }
+
+    /* ===== Add Option Link ===== */
+    .jp-question-link a {
+        color: #0a1f44;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+    .jp-question-link a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<div class="jp-question-wrapper">
+
+    <h2 class="jp-question-title">Add Questions</h2>
+
     <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-    <table border="1" align="center">
-        <tr>
-          <td>Question</td>
-          <td><textarea name="txt_question" required></textarea></td>
-        </tr>
-        <tr>
-            <td><input type="submit" value="Add"></td>
-          </tr>   
+        <table class="jp-question-form">
+            <tr>
+                <td><strong>Question</strong></td>
+                <td><textarea name="txt_question" required></textarea></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="submit" value="Add Question" class="jp-question-btn">
+                </td>
+            </tr>
         </table>
     </form>
-    <table border="1" cellpadding="10">
+
+    <table class="jp-question-table">
         <tr>
             <th>#</th>
-            <th>Questions</th>
+            <th>Question</th>
             <th>Exam</th>
             <th>Action</th>
-            
-  
         </tr>
-            {% for i in result %}
-            <tr>
-             <td>{{forloop.counter}}</td>
-             <td width="250">{{i.question}}</td> 
-             <td>{{i.examination.examination_name}}</td>
-             <td><a href="{% url 'JobProvider:addoptions' i.id %}">Add options</a></td> 
-      
-                
-             
+
+        {% for i in result %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td width="300">{{ i.question }}</td>
+            <td>{{ i.examination.examination_name }}</td>
+            <td class="jp-question-link">
+                <a href="{% url 'JobProvider:addoptions' i.id %}">Add Options</a>
+            </td>
         </tr>
         {% endfor %}
     </table>
-    
-</body>
-</html>
+
+</div>
+
+
+
+{% endblock %}

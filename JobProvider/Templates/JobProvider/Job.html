@@ -1,97 +1,234 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Job</title>
-</head>
-<body>
-    <form action="" method="POST">
-        {% csrf_token %}
-        <table border="2">
-            <tr>
-                <td>Title</td>
-                <td><input type="text" name="txt_title" id="txt_title"></td>
-            </tr>
-            <tr>
-                <td>Content</td>
-                <td><input type="text" name="txt_content" id="txt_content"></td>
-            </tr>
-            <tr>
-                <td>Age</td>
-                <td><input type="text" name="txt_age" id="txt_age"></td>
-            </tr>
-            <tr>
-                <td>Experience</td>
-                <td><input type="text" name="txt_experience" id="txt_experience"></td>
-            </tr>
-            <tr>
-                <td>Salary</td>
-                <td><input type="text" name="txt_salary" id="txt_salary"></td>
-            </tr>
-            <tr>
-                <td>Last Date</td>
-                <td><input type="date" name="txt_date" id="txt_date"></td>
-            </tr>
-            <tr>
-                <td>Job Type</td>
-                <td><select name="sel_jobtype" id="sel_jobtype">
-                    <option value="">-----Select------</option>
-                    {% for i in jobtypedata %}
-                    <option value="{{i.id}}">{{i.jobtype_name}}</option>
-                    {% endfor %}
-                </select></td>
-            </tr>
-            <tr>
-                <td> Job Category</td>
-                <td><select name="sel_category" required id="sel_category">
-                    <option value="">-----Select------</option>
-                    {% for i in jobcategorydata %}
-                    <option value="{{i.id}}">{{i.jobcategory_name}}</option>
-                    {% endfor %}
-                </select></td>
-            </tr>
-            <tr>
-                <td colspan="2" align="center"><input type="submit" value="Submit"></td>
-            </tr>
-        </table>
-    </form>
-    <table border="2">
+{% extends 'JobProvider/Header.html' %}
+{% block content %}
+
+<style>
+    /* ===== Job Page Wrapper ===== */
+    .jp-job-wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 30px;
+        font-family: Arial, sans-serif;
+    }
+
+    /* ===== Job Form Card ===== */
+    .jp-job-card {
+        width: 650px;
+        background-color: #ffffff;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        margin-bottom: 40px;
+    }
+
+    .jp-job-card h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #0a1f44;
+    }
+
+    /* ===== Job Form Table ===== */
+    .jp-job-form-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .jp-job-form-table td {
+        padding: 10px;
+    }
+
+    .jp-job-form-table td:first-child {
+        width: 30%;
+        font-weight: bold;
+        color: #333;
+    }
+
+    /* ===== Inputs & Select ===== */
+    .jp-job-input,
+    .jp-job-select {
+        width: 100%;
+        padding: 8px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+    }
+
+    .jp-job-input:focus,
+    .jp-job-select:focus {
+        outline: none;
+        border-color: #0a1f44;
+    }
+
+    /* ===== Submit Button ===== */
+    .jp-job-btn {
+        background-color: #0a1f44;
+        color: #fff;
+        border: none;
+        padding: 8px 22px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 15px;
+        transition: background-color 0.3s ease;
+    }
+
+    .jp-job-btn:hover {
+        background-color: #081a36;
+    }
+
+    /* ===== Job List Table ===== */
+    .jp-job-table-wrapper {
+        width: 95%;
+        margin: auto;
+    }
+
+    .jp-job-table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #ffffff;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+
+    .jp-job-table th {
+        background-color: #0a1f44;
+        color: white;
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .jp-job-table td {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+        font-size: 13px;
+        vertical-align: top;
+    }
+
+    .jp-job-table tr:hover {
+        background-color: #f2f6ff;
+    }
+
+    /* ===== Action Links ===== */
+    .jp-job-action a {
+        display: inline-block;
+        text-decoration: none;
+        color: #0a1f44;
+        font-weight: bold;
+        margin-right: 8px;
+        font-size: 13px;
+    }
+
+    .jp-job-action a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<!-- ===== Job Form ===== -->
+<div class="jp-job-wrapper">
+    <div class="jp-job-card">
+        <h2>Add Job</h2>
+
+        <form action="" method="POST">
+            {% csrf_token %}
+            <table class="jp-job-form-table">
+                <tr>
+                    <td>Title</td>
+                    <td><input type="text" name="txt_title" class="jp-job-input"></td>
+                </tr>
+                <tr>
+                    <td>Content</td>
+                    <td><input type="text" name="txt_content" class="jp-job-input"></td>
+                </tr>
+                <tr>
+                    <td>Age</td>
+                    <td><input type="text" name="txt_age" class="jp-job-input"></td>
+                </tr>
+                <tr>
+                    <td>Experience</td>
+                    <td><input type="text" name="txt_experience" class="jp-job-input"></td>
+                </tr>
+                <tr>
+                    <td>Salary</td>
+                    <td><input type="text" name="txt_salary" class="jp-job-input"></td>
+                </tr>
+                <tr>
+                    <td>Last Date</td>
+                    <td><input type="date" name="txt_date" class="jp-job-input"></td>
+                </tr>
+                <tr>
+                    <td>Job Type</td>
+                    <td>
+                        <select name="sel_jobtype" class="jp-job-select">
+                            <option value="">----- Select -----</option>
+                            {% for i in jobtypedata %}
+                            <option value="{{i.id}}">{{i.jobtype_name}}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Job Category</td>
+                    <td>
+                        <select name="sel_category" class="jp-job-select" required>
+                            <option value="">----- Select -----</option>
+                            {% for i in jobcategorydata %}
+                            <option value="{{i.id}}">{{i.jobcategory_name}}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <input type="submit" value="Submit" class="jp-job-btn">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+
+<!-- ===== Job List ===== -->
+<div class="jp-job-table-wrapper">
+    <table class="jp-job-table">
         <tr>
-            <td>SI NO</td>
-            <td>Title</td>
-            <td>Content</td>
-            <td>Age</td>
-            <td>Experience</td>
-            <td>Salary</td>
-            <td>Last Date</td>
-            <td>Job Type</td>
-            <td>Category</td>
-            <td>Action</td>
+            <th>#</th>
+            <th>Title</th>
+            <th>Content</th>
+            <th>Age</th>
+            <th>Experience</th>
+            <th>Salary</th>
+            <th>Last Date</th>
+            <th>Job Type</th>
+            <th>Category</th>
+            <th>Action</th>
         </tr>
-        {%  for i in jobdata %}
+
+        {% for i in jobdata %}
         <tr>
-            <td>{{forloop.counter}}</td>
-            <td>{{i.job_title}}</td>
-            <td>{{i.job_content}}</td>
-            <td>{{i.job_requriedage}}</td>
-            <td>{{i.job_experience}}</td>
-            <td>{{i.job_salary}}</td>
-            <td>{{i.job_lastdate}}</td>
-            <td>{{i.jobtype_id.jobtype_name}}</td>
-            <td>{{i.jobcategory_id.jobcategory_name}}</td>
-            <td><a href="{% url 'JobProvider:DeleteJob' i.id %}">Delete</a>
-            <a href="{% url 'JobProvider:JobQualification' i.id %}">Add Qualification</a>
-            <a href="{% url 'JobProvider:examinationdetails' i.id %}">Add Exam</a>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ i.job_title }}</td>
+            <td>{{ i.job_content }}</td>
+            <td>{{ i.job_requriedage }}</td>
+            <td>{{ i.job_experience }}</td>
+            <td>{{ i.job_salary }}</td>
+            <td>{{ i.job_lastdate }}</td>
+            <td>{{ i.jobtype_id.jobtype_name }}</td>
+            <td>{{ i.jobcategory_id.jobcategory_name }}</td>
+            <td class="jp-job-action">
+                <a href="{% url 'JobProvider:DeleteJob' i.id %}">Delete</a>
+                <a href="{% url 'JobProvider:JobQualification' i.id %}">Qualification</a>
+                <a href="{% url 'JobProvider:examinationdetails' i.id %}">Exam</a>
             </td>
         </tr>
         {% endfor %}
     </table>
-</body>
+</div>
+
 {% if msg %}
 <script>
-    alert("{{msg}}")
-    window.location = "{% url 'JobProvider:Job' %}"
+    alert("{{ msg }}");
+    window.location = "{% url 'JobProvider:Job' %}";
 </script>
 {% endif %}
-</html>
+
+
+
+{% endblock %}
