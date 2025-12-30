@@ -1,14 +1,72 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'Admin/Header.html' %}
+{% block content %}
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Job Provider Verification</title>
+
 </head>
-<body>
-     {% csrf_token %}
-     <h1>Pending</h1>
-    <table border="2">
+<style>
+/* ================= Job Provider Verification CSS ================= */
+
+.jpv-wrapper {
+    width: 95%;
+    margin: 30px auto;
+    color: #000000;
+}
+
+/* Section Headings */
+.jpv-heading {
+    font-size: 26px;
+    font-weight: bold;
+    color: #0b3c6d; /* Dark Blue */
+    margin: 25px 0 15px 0;
+}
+
+/* Tables */
+.jpv-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+}
+
+.jpv-table td {
+    border: 1px solid #000000;
+    padding: 8px;
+    text-align: center;
+    font-size: 14px;
+    color: #000000;
+}
+
+/* Images */
+.jpv-image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border: 1px solid #000000;
+}
+
+/* Action Links */
+.jpv-action a {
+    color: #0b3c6d;
+    font-weight: bold;
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+.jpv-action a:hover {
+    text-decoration: underline;
+    color: #062a4d;
+}
+
+</style>
+
+<div class="jpv-wrapper">
+
+    {% csrf_token %}
+
+    <!-- ================= Pending ================= -->
+    <div class="jpv-heading">Pending</div>
+
+    <table class="jpv-table">
         <tr>
             <td>SI NO</td>
             <td>Name</td>
@@ -22,24 +80,31 @@
             <td>DoJ</td>
             <td>Action</td>
         </tr>
+
         {% for i in pending %}
         <tr>
-            <td>{{forloop.counter}}</td>
-            <td>{{i.jobprovider_name}}</td>
-            <td>{{i.jobprovider_email}}</td>
-            <td>{{i.jobprovider_contact}}</td>
-            <td>{{i.jobprovider_address}}</td>
-            <td><img src="{{i.jobprovider_photo.url}}" alt=""></td>
-            <td><img src="{{i.jobprovider_proof.url}}" alt=""></td>
-            <td>{{i.place.district.district_name}}</td>
-            <td>{{i.place.place_name}}</td>
-            <td>{{i.jobprovider_doj}}</td>
-            <td><a href="{% url 'Admin:Accept' i.id %}">Accept</a> | <a href="{% url 'Admin:Reject' i.id %}">Reject</a></td>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ i.jobprovider_name }}</td>
+            <td>{{ i.jobprovider_email }}</td>
+            <td>{{ i.jobprovider_contact }}</td>
+            <td>{{ i.jobprovider_address }}</td>
+            <td><img src="{{ i.jobprovider_photo.url }}" class="jpv-image"></td>
+            <td><img src="{{ i.jobprovider_proof.url }}" class="jpv-image"></td>
+            <td>{{ i.place.district.district_name }}</td>
+            <td>{{ i.place.place_name }}</td>
+            <td>{{ i.jobprovider_doj }}</td>
+            <td class="jpv-action">
+                <a href="{% url 'Admin:Accept' i.id %}">Accept</a> |
+                <a href="{% url 'Admin:Reject' i.id %}">Reject</a>
+            </td>
         </tr>
         {% endfor %}
     </table>
-    <h1>Accepted</h1>
-    <table border="2">
+
+    <!-- ================= Accepted ================= -->
+    <div class="jpv-heading">Accepted</div>
+
+    <table class="jpv-table">
         <tr>
             <td>SI NO</td>
             <td>Name</td>
@@ -53,24 +118,30 @@
             <td>DoJ</td>
             <td>Action</td>
         </tr>
+
         {% for i in accept %}
         <tr>
-            <td>{{forloop.counter}}</td>
-            <td>{{i.jobprovider_name}}</td>
-            <td>{{i.jobprovider_email}}</td>
-            <td>{{i.jobprovider_contact}}</td>
-            <td>{{i.jobprovider_address}}</td>
-            <td><img src="{{i.jobprovider_photo.url}}" alt=""></td>
-            <td><img src="{{i.jobprovider_proof.url}}" alt=""></td>
-            <td>{{i.place.district.district_name}}</td>
-            <td>{{i.place.place_name}}</td>
-            <td>{{i.jobprovider_doj}}</td>
-            <td><a href="{% url 'Admin:Reject' i.id %}">Reject</a></td>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ i.jobprovider_name }}</td>
+            <td>{{ i.jobprovider_email }}</td>
+            <td>{{ i.jobprovider_contact }}</td>
+            <td>{{ i.jobprovider_address }}</td>
+            <td><img src="{{ i.jobprovider_photo.url }}" class="jpv-image"></td>
+            <td><img src="{{ i.jobprovider_proof.url }}" class="jpv-image"></td>
+            <td>{{ i.place.district.district_name }}</td>
+            <td>{{ i.place.place_name }}</td>
+            <td>{{ i.jobprovider_doj }}</td>
+            <td class="jpv-action">
+                <a href="{% url 'Admin:Reject' i.id %}">Reject</a>
+            </td>
         </tr>
         {% endfor %}
     </table>
-    <h1>Rejected</h1>
-    <table border="2">
+
+    <!-- ================= Rejected ================= -->
+    <div class="jpv-heading">Rejected</div>
+
+    <table class="jpv-table">
         <tr>
             <td>SI NO</td>
             <td>Name</td>
@@ -84,27 +155,33 @@
             <td>DoJ</td>
             <td>Action</td>
         </tr>
+
         {% for i in reject %}
         <tr>
-            <td>{{forloop.counter}}</td>
-            <td>{{i.jobprovider_name}}</td>
-            <td>{{i.jobprovider_email}}</td>
-            <td>{{i.jobprovider_contact}}</td>
-            <td>{{i.jobprovider_address}}</td>
-            <td><img src="{{i.jobprovider_photo.url}}" alt=""></td>
-            <td><img src="{{i.jobprovider_proof.url}}" alt=""></td>
-            <td>{{i.place.district.district_name}}</td>
-            <td>{{i.place.place_name}}</td>
-            <td>{{i.jobprovider_doj}}</td>
-            <td><a href="{% url 'Admin:Accept' i.id %}">Accept</a></td>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ i.jobprovider_name }}</td>
+            <td>{{ i.jobprovider_email }}</td>
+            <td>{{ i.jobprovider_contact }}</td>
+            <td>{{ i.jobprovider_address }}</td>
+            <td><img src="{{ i.jobprovider_photo.url }}" class="jpv-image"></td>
+            <td><img src="{{ i.jobprovider_proof.url }}" class="jpv-image"></td>
+            <td>{{ i.place.district.district_name }}</td>
+            <td>{{ i.place.place_name }}</td>
+            <td>{{ i.jobprovider_doj }}</td>
+            <td class="jpv-action">
+                <a href="{% url 'Admin:Accept' i.id %}">Accept</a>
+            </td>
         </tr>
         {% endfor %}
     </table>
-</body>
+
+</div>
+
 {% if msg %}
 <script>
-    alert("{{msg}}")
-    window.location = "{% url 'Admin:JobproviderVerification' %}"
+    alert("{{ msg }}");
+    window.location = "{% url 'Admin:JobproviderVerification' %}";
 </script>
 {% endif %}
-</html>
+
+{% endblock %}

@@ -1,8 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from Admin.models import *
 from Guest.models import *
 from User.models import *
 # Create your views here.
+
+
 def District(request):
     districtDatas = tbl_district.objects.all()
     if request.method=="POST":
@@ -218,4 +220,9 @@ def Feedback(request):
 
 def HomePage(request):
     admindata = tbl_admin.objects.get(id=request.session['aid'])
-    return render(request,"Admin/HomePage.html",{'admindata':admindata})
+    user = tbl_user.objects.all().count()
+    jobprovider = tbl_jobprovider.objects.all().count()
+    return render(request,"Admin/HomePage.html",{'admindata':admindata,'userdata':user,'jobproviderdata':jobprovider})
+def Logout(request):
+    del request.session['aid']
+    return redirect('Guest:Login')

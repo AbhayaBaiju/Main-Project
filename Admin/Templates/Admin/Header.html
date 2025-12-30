@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <!-- site metas -->
-    <title>Career Hive</title>
+    <!-- <title>Career Hive</title> -->
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -176,117 +176,48 @@
                 <!-- end topbar -->
                 <!-- dashboard inner -->
                 <div class="midde_cont">
-                    <div class="container-fluid">
-                        <div class="row column_title">
-                            <div class="col-md-12">
-                                <div class="page_title">
-                                    <!-- <h2>Dashboard</h2> -->
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="row column1">
-                            <div class="col-md-6 col-lg-6">
-                                <div class="full counter_section margin_bottom_30">
-                                    <div class="couter_icon">
-                                        <div>
-                                            <i class="fa fa-user yellow_color"></i>
-                                        </div>
-                                    </div>
-                                    <div class="counter_no" style="margin-bottom: 120px;">
-                                        <div>
-                                            <p class="total_no">User</p>
-                                            <p class="head_couter">Count:{{userdata}}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="full counter_section margin_bottom_30">
-                                    <div class="couter_icon" >
-                                        <div>
-                                            <i class="fa fa-user yellow_color"></i>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="counter_no" style="margin-bottom: 120px;">
-                                        <div>
-                                            <p class="total_no">Job Provider</p>
-                                            <p class="head_couter">Count:{{jobproviderdata}}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-6">
-                                <img style="margin-left: 50px;" src="{% static 'Admin/images/logo/CHlogo3.png' %}" alt="" width="500">
-                            </div>
-                            <!-- <div class="col-md-6 col-lg-3">
-                           <div class="full counter_section margin_bottom_30">
-                              <div class="couter_icon">
-                                 <div> 
-                                    <i class="fa fa-cloud-download green_color"></i>
-                                 </div>
-                              </div>
-                              <div class="counter_no">
-                                 <div>
-                                    <p class="total_no">1,805</p>
-                                    <p class="head_couter">Collections</p>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                           <div class="full counter_section margin_bottom_30">
-                              <div class="couter_icon">
-                                 <div> 
-                                    <i class="fa fa-comments-o red_color"></i>
-                                 </div>
-                              </div>
-                              <div class="counter_no">
-                                 <div>
-                                    <p class="total_no">54</p>
-                                    <p class="head_couter">Comments</p>
-                                 </div>
-                              </div>
-                           </div>
-                        </div> -->
-                        </div>
-                        <br><br>
 
-                        <!-- footer -->
-                        <div class="container-fluid">
-                            <div class="footer">
-                                <p>Copyright © 2018 Designed by html.design. All rights reserved.<br><br>
-                                    Distributed By: <a href="https://themewagon.com/">ThemeWagon</a>
-                                </p>
-                            </div>
+
+                    {% block content %}
+                    {% endblock %}
+
+
+                    <!-- footer -->
+                    <!-- <div class="container-fluid">
+                        <div class="footer">
+                            <p>Copyright © 2018 Designed by html.design. All rights reserved.<br><br>
+                                Distributed By: <a href="https://themewagon.com/">ThemeWagon</a>
+                            </p>
                         </div>
-                    </div>
-                    <!-- end dashboard inner -->
+                    </div> -->
                 </div>
+                <!-- end dashboard inner -->
             </div>
         </div>
-        <!-- jQuery -->
-        <script src="{% static 'Admin/js/jquery.min.js' %}"></script>
-        <script src="{% static 'Admin/js/popper.min.js' %}"></script>
-        <script src="{% static 'Admin/js/bootstrap.min.js' %}"></script>
-        <!-- wow animation -->
-        <script src="{% static 'Admin/js/animate.js' %}"></script>
-        <!-- select country -->
-        <script src="{% static 'Admin/js/bootstrap-select.js' %}"></script>
-        <!-- owl carousel -->
-        <script src="{% static 'Admin/js/owl.carousel.js' %}"></script>
-        <!-- chart js -->
-        <script src="{% static 'Admin/js/Chart.min.js' %}"></script>
-        <script src="{% static 'Admin/js/Chart.bundle.min.js' %}"></script>
-        <script src="{% static 'Admin/js/utils.js' %}"></script>
-        <script src="{% static 'Admin/js/analyser.js' %}"></script>
-        <!-- nice scrollbar -->
-        <script src="{% static 'Admin/js/perfect-scrollbar.min.js' %}"></script>
-        <script>
-            var ps = new PerfectScrollbar('#sidebar');
-        </script>
-        <!-- custom js -->
-        <script src="{% static 'Admin/js/custom.js' %}"></script>
-        <script src="{% static 'Admin/js/chart_custom_style1.js' %}"></script>
+    </div>
+    <!-- jQuery -->
+    <script src="{% static 'Admin/js/jquery.min.js' %}"></script>
+    <script src="{% static 'Admin/js/popper.min.js' %}"></script>
+    <script src="{% static 'Admin/js/bootstrap.min.js' %}"></script>
+    <!-- wow animation -->
+    <script src="{% static 'Admin/js/animate.js' %}"></script>
+    <!-- select country -->
+    <script src="{% static 'Admin/js/bootstrap-select.js' %}"></script>
+    <!-- owl carousel -->
+    <script src="{% static 'Admin/js/owl.carousel.js' %}"></script>
+    <!-- chart js -->
+    <script src="{% static 'Admin/js/Chart.min.js' %}"></script>
+    <script src="{% static 'Admin/js/Chart.bundle.min.js' %}"></script>
+    <script src="{% static 'Admin/js/utils.js' %}"></script>
+    <script src="{% static 'Admin/js/analyser.js' %}"></script>
+    <!-- nice scrollbar -->
+    <script src="{% static 'Admin/js/perfect-scrollbar.min.js' %}"></script>
+    <script>
+        var ps = new PerfectScrollbar('#sidebar');
+    </script>
+    <!-- custom js -->
+    <script src="{% static 'Admin/js/custom.js' %}"></script>
+    <script src="{% static 'Admin/js/chart_custom_style1.js' %}"></script>
 </body>
 
 </html>

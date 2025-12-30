@@ -1,55 +1,170 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'Admin/Header.html' %}
+{% block content %}
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Place</title>
+
 </head>
-<body>
-    <form action="" method="POST">
+<style>
+/* ================= Place Page CSS ================= */
+
+.place-wrapper {
+    width: 90%;
+    margin: 30px auto;
+    color: #000000;
+}
+
+/* Page Heading */
+.place-heading {
+    font-size: 26px;
+    font-weight: bold;
+    color: #0b3c6d; /* Dark Blue */
+    margin-bottom: 20px;
+}
+
+/* Form Table */
+.place-form-table {
+    width: 50%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+}
+
+.place-form-table td {
+    border: 1px solid #000000;
+    padding: 10px;
+    color: #000000;
+}
+
+/* Input & Select */
+.place-input,
+.place-select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #000000;
+    color: #000000;
+    background-color: #ffffff;
+}
+
+/* Submit Button */
+.place-submit-btn {
+    padding: 8px 25px;
+    background-color: #0b3c6d;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.place-submit-btn:hover {
+    background-color: #062a4d;
+}
+
+/* List Table */
+.place-list-table {
+    width: 70%;
+    border-collapse: collapse;
+}
+
+.place-list-table td {
+    border: 1px solid #000000;
+    padding: 10px;
+    text-align: center;
+    color: #000000;
+}
+
+/* Action Links */
+.place-action a {
+    color: #0b3c6d;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.place-action a:hover {
+    text-decoration: underline;
+    color: #062a4d;
+}
+
+</style>
+
+<div class="place-wrapper">
+
+    <div class="place-heading">Place Management</div>
+
+    <!-- Place Form -->
+    <form method="POST">
         {% csrf_token %}
-        <table border="2">
+        <table class="place-form-table">
             <tr>
                 <td>District</td>
-                <td><select name="sel_district" required id="sel_district">
-                    <option  value="{{i.id}}">-----Select------</option>
-                    {% for i in districtDatas %}
-                        <option {% if placeOne.district_id == i.id %} selected {% endif %} value="{{i.id}}">{{i.district_name}}</option>
-                     {% endfor %}
-
-
-                </select></td>
+                <td>
+                    <select name="sel_district" required class="place-select">
+                        <option value="">----- Select -----</option>
+                        {% for i in districtDatas %}
+                        <option
+                            value="{{ i.id }}"
+                            {% if placeOne.district_id == i.id %}selected{% endif %}
+                        >
+                            {{ i.district_name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </td>
             </tr>
             <tr>
                 <td>Place</td>
-                <td><input required type="text" name="txt_placename" title="Name Allows Only Alphabets,Spaces and First Letter Must Be Capital Letter" pattern="^[A-Z]+[a-zA-Z ]*$" value="{{placeOne.place_name}}"/></td>
+                <td>
+                    <input
+                        type="text"
+                        name="txt_placename"
+                        class="place-input"
+                        required
+                        pattern="^[A-Z]+[a-zA-Z ]*$"
+                        title="Only alphabets allowed and first letter must be capital"
+                        value="{{ placeOne.place_name }}"
+                    >
+                </td>
             </tr>
             <tr>
-                <td colspan="2" align="center"><input type="submit" value="Submit"></td>
+                <td colspan="2" align="center">
+                    <input
+                        type="submit"
+                        value="Submit"
+                        class="place-submit-btn"
+                    >
+                </td>
             </tr>
         </table>
     </form>
-    <table border="2">
+
+    <!-- Place List -->
+    <table class="place-list-table">
         <tr>
             <td>SI NO</td>
-            <td>Place</td>
             <td>District</td>
+            <td>Place</td>
             <td>Action</td>
         </tr>
+
         {% for i in placeDatas %}
         <tr>
-            <td>{{forloop.counter}}</td>
-            <td>{{i.district.district_name}}</td>
-            <td>{{i.place_name}}</td>
-            <td><a href="{%  url 'Admin:DeletePlace' i.id %}">Delete</a> | <a href="{%  url 'Admin:EditPlace' i.id %}">Edit</a></td>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ i.district.district_name }}</td>
+            <td>{{ i.place_name }}</td>
+            <td class="place-action">
+                <a href="{% url 'Admin:DeletePlace' i.id %}">Delete</a> |
+                <a href="{% url 'Admin:EditPlace' i.id %}">Edit</a>
+            </td>
         </tr>
         {% endfor %}
     </table>
-</body>
+
+</div>
+
 {% if msg %}
 <script>
-    alert("{{msg}}")
-    window.location = "{% url 'Admin:Place' %}"
+    alert("{{ msg }}");
+    window.location = "{% url 'Admin:Place' %}";
 </script>
 {% endif %}
-</html>
+
+{% endblock %}

@@ -18,5 +18,7 @@ urlpatterns=[
     path('ajaxtimer/',views.ajaxtimer,name='ajaxtimer'),
     path('successer/',views.successer,name='successer'),
     path('Feedback/',views.Feedback,name='Feedback'),
+    path('Logout/',views.Logout,name="Logout"),
+
     
 ]

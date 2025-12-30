@@ -213,3 +213,7 @@ def SendMail(request,uid):
                             [email],
                         )
     return render(request,"JobProvider/MyExam.html",{'msg':"Mail Send"})
+
+def Logout(request):
+    del request.session['jid']
+    return redirect('Guest:Login')

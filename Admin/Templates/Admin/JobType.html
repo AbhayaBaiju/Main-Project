@@ -1,42 +1,148 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'Admin/Header.html' %}
+{% block content %}
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Job Type</title>
+
 </head>
-<body>
-    <form action="" method="POST">
+<style>
+/* ================= Job Type Page CSS ================= */
+
+.jobtype-wrapper {
+    width: 90%;
+    margin: 30px auto;
+    color: #000000;
+}
+
+/* Page Heading */
+.jobtype-heading {
+    font-size: 26px;
+    font-weight: bold;
+    color: #0b3c6d; /* Dark Blue */
+    margin-bottom: 20px;
+}
+
+/* Form Table */
+.jobtype-form-table {
+    width: 45%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+}
+
+.jobtype-form-table td {
+    border: 1px solid #000000;
+    padding: 10px;
+    color: #000000;
+}
+
+/* Input Field */
+.jobtype-input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #000000;
+    color: #000000;
+}
+
+/* Submit Button */
+.jobtype-submit-btn {
+    padding: 8px 25px;
+    background-color: #0b3c6d;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.jobtype-submit-btn:hover {
+    background-color: #062a4d;
+}
+
+/* List Table */
+.jobtype-list-table {
+    width: 60%;
+    border-collapse: collapse;
+}
+
+.jobtype-list-table td {
+    border: 1px solid #000000;
+    padding: 10px;
+    text-align: center;
+    color: #000000;
+}
+
+/* Action Link */
+.jobtype-action a {
+    color: #0b3c6d;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.jobtype-action a:hover {
+    text-decoration: underline;
+    color: #062a4d;
+}
+
+</style>
+
+<div class="jobtype-wrapper">
+
+    <div class="jobtype-heading">Job Type Management</div>
+
+    <!-- Job Type Form -->
+    <form method="POST">
         {% csrf_token %}
-        <table border="2">
+        <table class="jobtype-form-table">
             <tr>
                 <td>Type</td>
-                <td><input required type="text" name="txt_type" title="Name Allows Only Alphabets,Spaces and First Letter Must Be Capital Letter" pattern="^[A-Z]+[a-zA-Z ]*$"/></td>
+                <td>
+                    <input
+                        type="text"
+                        name="txt_type"
+                        class="jobtype-input"
+                        required
+                        pattern="^[A-Z]+[a-zA-Z ]*$"
+                        title="Only alphabets allowed and first letter must be capital"
+                    >
+                </td>
             </tr>
             <tr>
-                <td colspan="2" align="center"><input type="submit" value="Submit"></td>
+                <td colspan="2" align="center">
+                    <input
+                        type="submit"
+                        value="Submit"
+                        class="jobtype-submit-btn"
+                    >
+                </td>
             </tr>
         </table>
     </form>
-    <table border="2">
+
+    <!-- Job Type List -->
+    <table class="jobtype-list-table">
         <tr>
             <td>SI NO</td>
             <td>Type</td>
             <td>Action</td>
         </tr>
+
         {% for i in jobtypedata %}
         <tr>
-            <td>{{forloop.counter}}</td>
-            <td>{{i.jobtype_name}}</td>
-            <td><a href="{% url 'Admin:DeleteJobType' i.id %}">Delete</a></td>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ i.jobtype_name }}</td>
+            <td class="jobtype-action">
+                <a href="{% url 'Admin:DeleteJobType' i.id %}">Delete</a>
+            </td>
         </tr>
         {% endfor %}
     </table>
-</body>
+
+</div>
+
 {% if msg %}
 <script>
-    alert("{{msg}}")
-    window.location = "{% url 'Admin:JobType' %}"
+    alert("{{ msg }}");
+    window.location = "{% url 'Admin:JobType' %}";
 </script>
 {% endif %}
-</html>
+
+{% endblock %}

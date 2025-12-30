@@ -1,28 +1,105 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'Admin/Header.html' %}
+{% block content %}
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reply</title>
+
 </head>
-<body>
-    <form action="" method="POST">
+<style>
+/* ================= Reply Page CSS ================= */
+
+.reply-wrapper {
+    width: 50%;
+    margin: 40px auto;
+    color: #000000;
+}
+
+/* Page Heading */
+.reply-heading {
+    font-size: 26px;
+    font-weight: bold;
+    color: #0b3c6d; /* Dark Blue */
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Form Table */
+.reply-form-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+}
+
+.reply-form-table td {
+    border: 1px solid #000000;
+    padding: 10px;
+    color: #000000;
+}
+
+/* Input Field */
+.reply-input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #000000;
+    color: #000000;
+}
+
+/* Submit Button */
+.reply-submit-btn {
+    padding: 8px 25px;
+    background-color: #0b3c6d;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.reply-submit-btn:hover {
+    background-color: #062a4d;
+}
+
+</style>
+
+<div class="reply-wrapper">
+
+    <div class="reply-heading">Reply to Complaint</div>
+
+    <!-- Reply Form -->
+    <form method="POST">
         {% csrf_token %}
-        <table border="2">
+        <table class="reply-form-table">
             <tr>
                 <td>Reply</td>
-                <td><input required type="text" name="txt_reply" title="Name Allows Only Alphabets,Spaces and First Letter Must Be Capital Letter" pattern="^[A-Z]+[a-zA-Z ]*$"/></td>
+                <td>
+                    <input
+                        type="text"
+                        name="txt_reply"
+                        class="reply-input"
+                        required
+                        pattern="^[A-Z]+[a-zA-Z ]*$"
+                        title="Only alphabets allowed and first letter must be capital"
+                    >
+                </td>
             </tr>
             <tr>
-                <td colspan="2" align="center"><input type="submit" value="Submit"></td>
+                <td colspan="2" align="center">
+                    <input
+                        type="submit"
+                        value="Submit"
+                        class="reply-submit-btn"
+                    >
+                </td>
             </tr>
         </table>
     </form>
-</body>
+
+</div>
+
 {% if msg %}
 <script>
-    alert("{{msg}}")
-    window.location = "{% url 'Admin:ViewComplaint' %}"
+    alert("{{ msg }}");
+    window.location = "{% url 'Admin:ViewComplaint' %}";
 </script>
 {% endif %}
-</html>
+
+{% endblock %}

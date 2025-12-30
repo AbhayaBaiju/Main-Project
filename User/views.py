@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from Guest.models import *
 from User.models import *
 from JobProvider.models import *
@@ -165,3 +165,7 @@ def Feedback(request):
         return render(request,"User/Feedback.html",{'msg':'Feedback Submitted'})
     else:
         return render(request,"User/Feedback.html")
+    
+def Logout(request):
+    del request.session['uid']
+    return redirect('Guest:Login')

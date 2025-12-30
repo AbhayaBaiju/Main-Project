@@ -2,6 +2,7 @@ from django.urls import path
 from Admin import views
 app_name="Admin"
 urlpatterns=[
+
     path('District/',views.District, name="District"),
     path('deletedistrict/<int:did>',views.DeleteDistrict,name="DeleteDistrict"),
     path('editdistrict/<int:eid>',views.EditDistrict,name="EditDistrict"),
@@ -43,5 +44,8 @@ urlpatterns=[
     path('Feedback/',views.Feedback,name='Feedback'),
 
     path('HomePage/',views.HomePage,name="HomePage"),
+    path('Logout/',views.Logout,name="Logout"),
+
+    
 
 ]

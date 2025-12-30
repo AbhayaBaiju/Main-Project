@@ -1,38 +1,89 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'Admin/Header.html' %}
+
+{% block content %}
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Feedback</title>
+
 </head>
-<body>
-    <table border="2">
+<style>
+/* ================= Feedback Page CSS ================= */
+
+.feedback-wrapper {
+    width: 90%;
+    margin: 30px auto;
+    color: #000000;
+}
+
+/* -------- Page Headings -------- */
+
+.feedback-title {
+    font-size: 26px;
+    font-weight: bold;
+    margin: 25px 0 15px 0;
+    color: #0b3c6d; /* Dark Blue */
+}
+
+/* -------- Feedback Tables -------- */
+
+.feedback-table {
+    width: 80%;
+    border-collapse: collapse;
+    margin-bottom: 40px;
+}
+
+.feedback-table td {
+    padding: 10px;
+    border: 1px solid #000000; /* Black borders */
+    text-align: center;
+    color: #000000;
+}
+
+.feedback-table tr:first-child {
+    font-weight: bold;
+}
+
+</style>
+
+<div class="feedback-wrapper">
+
+    <!-- ================= User Feedback ================= -->
+    <div class="feedback-title">User Feedback</div>
+
+    <table class="feedback-table">
         <tr>
             <td>SINO</td>
             <td>User</td>
             <td>Content</td>
         </tr>
+
         {% for i in userfeedback %}
         <tr>
-            <td>{{forloop.counter}}</td>
-            <td>{{i.user.user_name}}</td>
-            <td>{{i.feedback_content}}</td>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ i.user.user_name }}</td>
+            <td>{{ i.feedback_content }}</td>
         </tr>
         {% endfor %}
     </table>
-        <table border="2">
+
+    <!-- ================= Job Provider Feedback ================= -->
+    <div class="feedback-title">Job Provider Feedback</div>
+
+    <table class="feedback-table">
         <tr>
             <td>SINO</td>
-            <td>JobProvider</td>
+            <td>Job Provider</td>
             <td>Content</td>
         </tr>
+
         {% for i in jobproviderfeedback %}
         <tr>
-            <td>{{forloop.counter}}</td>
-            <td>{{i.jobprovider.jobprovider_name}}</td>
-            <td>{{i.feedback_content}}</td>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ i.jobprovider.jobprovider_name }}</td>
+            <td>{{ i.feedback_content }}</td>
         </tr>
         {% endfor %}
     </table>
-</body>
-</html>
+
+</div>
+
+{% endblock %}

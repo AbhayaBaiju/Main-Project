@@ -1,45 +1,152 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'Admin/Header.html' %}
 
+{% block content %}
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>District</title>
-</head>
 
-<body>
-    <form action="" method="POST">
+</head>
+<style>
+/* ================= District Page CSS ================= */
+
+.district-wrapper {
+    width: 90%;
+    margin: 30px auto;
+    color: #000000; /* Default text color BLACK */
+}
+
+/* -------- Heading -------- */
+
+.district-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #0b3c6d; /* Dark Blue */
+}
+
+/* -------- Form Table -------- */
+
+.district-form-table {
+    width: 50%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+}
+
+.district-form-table td {
+    padding: 10px;
+    border: 1px solid #000000; /* BLACK border */
+    color: #000000; /* BLACK text */
+}
+
+.district-input {
+    width: 100%;
+    padding: 8px;
+    color: #000000;
+    border: 1px solid #000000;
+}
+
+/* -------- Dark Blue Button -------- */
+
+.district-submit-btn {
+    padding: 8px 25px;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #0b3c6d;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+}
+
+.district-submit-btn:hover {
+    background-color: #062a4d;
+}
+
+/* -------- List Table -------- */
+
+.district-list-table {
+    width: 80%;
+    border-collapse: collapse;
+}
+
+.district-list-table td {
+    padding: 10px;
+    border: 1px solid #000000; /* BLACK border */
+    text-align: center;
+    color: #000000; /* BLACK text */
+}
+
+/* -------- Dark Blue Links -------- */
+
+.district-action a {
+    text-decoration: none;
+    font-weight: bold;
+    margin: 0 5px;
+    color: #0b3c6d; /* Dark Blue */
+}
+
+.district-action a:hover {
+    color: #062a4d;
+    text-decoration: underline;
+}
+
+</style>
+
+<div class="district-wrapper">
+
+    <div class="district-title">District Management</div>
+
+    <!-- District Form -->
+    <form method="POST">
         {% csrf_token %}
-        <table border="2">
+        <table class="district-form-table">
             <tr>
                 <td>District</td>
-                <td><input required type="text" name="txt_districtname" title="Name Allows Only Alphabets,Spaces and First Letter Must Be Capital Letter" pattern="^[A-Z]+[a-zA-Z ]*$" value="{{districtOne.district_name}}"/></td>
+                <td>
+                    <input
+                        type="text"
+                        name="txt_districtname"
+                        class="district-input"
+                        required
+                        pattern="^[A-Z]+[a-zA-Z ]*$"
+                        title="Name allows only alphabets and first letter must be capital"
+                        value="{{ districtOne.district_name }}"
+                    >
+                </td>
             </tr>
             <tr>
-                <td colspan="2" align="center"><input type="submit" value="Submit"></td>
+                <td colspan="2" align="center">
+                    <input type="submit" value="Submit" class="district-submit-btn">
+                </td>
             </tr>
         </table>
     </form>
-    <table border="1">
+
+    <!-- District List -->
+    <table class="district-list-table">
         <tr>
             <td>Sl No</td>
             <td>District</td>
             <td>Action</td>
         </tr>
+
         {% for i in districtDatas %}
         <tr>
-            <td>{{forloop.counter}}</td>
-            <td>{{i.district_name}}</td>
-            <td><a href="{%  url 'Admin:DeleteDistrict' i.id %}">Delete</a> | <a href="{%  url 'Admin:EditDistrict' i.id %}">Edit</a> </td>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ i.district_name }}</td>
+            <td class="district-action">
+                <a href="{% url 'Admin:DeleteDistrict' i.id %}">Delete</a> |
+                <a href="{% url 'Admin:EditDistrict' i.id %}">Edit</a>
+            </td>
         </tr>
         {% endfor %}
     </table>
-</body>
+
+</div>
+
 {% if msg %}
 <script>
-    alert("{{msg}}")
-    window.location = "{% url 'Admin:District' %}"
+    alert("{{ msg }}");
+    window.location = "{% url 'Admin:District' %}";
 </script>
 {% endif %}
 
-</html>
+{% endblock %}

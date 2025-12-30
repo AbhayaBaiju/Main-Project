@@ -1,43 +1,148 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'Admin/Header.html' %}
+{% block content %}
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Qualification</title>
+
 </head>
-<body>
-    <form action="" method="POST">
+<style>
+/* ================= Qualification Page CSS ================= */
+
+.qualification-wrapper {
+    width: 90%;
+    margin: 30px auto;
+    color: #000000;
+}
+
+/* Page Heading */
+.qualification-heading {
+    font-size: 26px;
+    font-weight: bold;
+    color: #0b3c6d; /* Dark Blue */
+    margin-bottom: 20px;
+}
+
+/* Form Table */
+.qualification-form-table {
+    width: 50%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+}
+
+.qualification-form-table td {
+    border: 1px solid #000000;
+    padding: 10px;
+    color: #000000;
+}
+
+/* Input Field */
+.qualification-input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #000000;
+    color: #000000;
+}
+
+/* Submit Button */
+.qualification-submit-btn {
+    padding: 8px 25px;
+    background-color: #0b3c6d;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.qualification-submit-btn:hover {
+    background-color: #062a4d;
+}
+
+/* List Table */
+.qualification-list-table {
+    width: 60%;
+    border-collapse: collapse;
+}
+
+.qualification-list-table td {
+    border: 1px solid #000000;
+    padding: 10px;
+    text-align: center;
+    color: #000000;
+}
+
+/* Action Link */
+.qualification-action a {
+    color: #0b3c6d;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.qualification-action a:hover {
+    text-decoration: underline;
+    color: #062a4d;
+}
+
+</style>
+
+<div class="qualification-wrapper">
+
+    <div class="qualification-heading">Qualification Management</div>
+
+    <!-- Qualification Form -->
+    <form method="POST">
         {% csrf_token %}
-        <table border="2">
+        <table class="qualification-form-table">
             <tr>
                 <td>Qualification</td>
                 <td>
-                    <input required type="text" name="txt_qualification" title="Name Allows Only Alphabets,Spaces and First Letter Must Be Capital Letter" pattern="^[A-Z]+[a-zA-Z ]*$"/></td>
+                    <input
+                        type="text"
+                        name="txt_qualification"
+                        class="qualification-input"
+                        required
+                        pattern="^[A-Z]+[a-zA-Z ]*$"
+                        title="Only alphabets allowed and first letter must be capital"
+                    >
+                </td>
             </tr>
             <tr>
-                <td colspan="2" align="center"><input type="submit" value="Submit"></td>
+                <td colspan="2" align="center">
+                    <input
+                        type="submit"
+                        value="Submit"
+                        class="qualification-submit-btn"
+                    >
+                </td>
             </tr>
         </table>
     </form>
-    <table border="2">
+
+    <!-- Qualification List -->
+    <table class="qualification-list-table">
         <tr>
             <td>SI NO</td>
             <td>Qualification</td>
             <td>Action</td>
         </tr>
+
         {% for i in qualificationdata %}
         <tr>
-            <td>{{forloop.counter}}</td>
-            <td>{{i.qualification_name}}</td>
-            <td><a href="{% url 'Admin:DeleteQualification' i.id %}">Delete</a></td>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ i.qualification_name }}</td>
+            <td class="qualification-action">
+                <a href="{% url 'Admin:DeleteQualification' i.id %}">Delete</a>
+            </td>
         </tr>
         {% endfor %}
     </table>
-</body>
+
+</div>
+
 {% if msg %}
 <script>
-    alert("{{msg}}")
-    window.location = "{% url 'Admin:Qualification' %}"
+    alert("{{ msg }}");
+    window.location = "{% url 'Admin:Qualification' %}";
 </script>
 {% endif %}
-</html>
+
+{% endblock %}

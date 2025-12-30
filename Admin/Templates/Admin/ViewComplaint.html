@@ -1,55 +1,116 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'Admin/Header.html' %}
+{% block content %}
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Complaint</title>
+
 </head>
-<body>
-    {% csrf_token %}
-    <table border="2">
+<style>
+/* ================= View Complaint Page CSS ================= */
+
+.complaint-wrapper {
+    width: 95%;
+    margin: 30px auto;
+    color: #000000;
+}
+
+/* Page Heading */
+.complaint-heading {
+    font-size: 26px;
+    font-weight: bold;
+    color: #0b3c6d; /* Dark Blue */
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Table */
+.complaint-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+}
+
+.complaint-table td,
+.complaint-table th {
+    border: 1px solid #000000;
+    padding: 10px;
+    color: #000000;
+    text-align: center;
+}
+
+/* Table Header */
+.complaint-table th {
+    background-color: #e6f0ff;
+    color: #0b3c6d;
+}
+
+/* Action Link */
+.complaint-action a {
+    color: #0b3c6d;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.complaint-action a:hover {
+    text-decoration: underline;
+    color: #062a4d;
+}
+
+</style>
+
+<div class="complaint-wrapper">
+
+    <div class="complaint-heading">Pending Complaints</div>
+
+    <!-- Pending Complaints Table -->
+    <table class="complaint-table">
         <tr>
-            <td>SI NO</td>
-            <td>User Name</td>
-            <td>Email</td>
-            <td>Title</td>
-            <td>Content</td>
-            <td>Date</td>
-            <td>Action</td>
+            <th>SI NO</th>
+            <th>User Name</th>
+            <th>Email</th>
+            <th>Title</th>
+            <th>Content</th>
+            <th>Date</th>
+            <th>Action</th>
         </tr>
         {% for i in complaintdata %}
-        <tr>
-            <td>{{forloop.counter}}</td>
-            <td>{{i.user_id.user_name}}</td>
-            <td>{{i.user_id.user_email}}</td>
-            <td>{{i.complaint_title}}</td>
-            <td>{{i.complaint_content}}</td>
-            <td>{{i.complaint_date}}</td>
+        <tr class="complaint-action">
+            <td>{{ forloop.counter }}</td>
+            <td>{{ i.user_id.user_name }}</td>
+            <td>{{ i.user_id.user_email }}</td>
+            <td>{{ i.complaint_title }}</td>
+            <td>{{ i.complaint_content }}</td>
+            <td>{{ i.complaint_date }}</td>
             <td><a href="{% url 'Admin:Reply' i.id %}">Reply</a></td>
         </tr>
         {% endfor %}
     </table>
-    <table border="2">
+
+    <div class="complaint-heading">Replied Complaints</div>
+
+    <!-- Replied Complaints Table -->
+    <table class="complaint-table">
         <tr>
-             <td>SI NO</td>
-            <td>User Name</td>
-            <td>Email</td>
-            <td>Title</td>
-            <td>Content</td>
-            <td>Date</td>
-            <td>Reply</td>
+            <th>SI NO</th>
+            <th>User Name</th>
+            <th>Email</th>
+            <th>Title</th>
+            <th>Content</th>
+            <th>Date</th>
+            <th>Reply</th>
         </tr>
         {% for i in complaintone %}
         <tr>
-            <td>{{forloop.counter}}</td>
-            <td>{{i.user_id.user_name}}</td>
-            <td>{{i.user_id.user_email}}</td>
-            <td>{{i.complaint_title}}</td>
-            <td>{{i.complaint_content}}</td>
-            <td>{{i.complaint_date}}</td>
-            <td>{{i.complaint_reply}}</td>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ i.user_id.user_name }}</td>
+            <td>{{ i.user_id.user_email }}</td>
+            <td>{{ i.complaint_title }}</td>
+            <td>{{ i.complaint_content }}</td>
+            <td>{{ i.complaint_date }}</td>
+            <td>{{ i.complaint_reply }}</td>
         </tr>
         {% endfor %}
     </table>
-</body>
-</html>
+
+</div>
+
+{% endblock %}
