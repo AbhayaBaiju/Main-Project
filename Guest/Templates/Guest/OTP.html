@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>OTP Verification</title>
 
     <!-- Lottie Player CDN -->
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
@@ -13,7 +13,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Rubik+Gemstones&display=swap" rel="stylesheet">
 
     <style>
-        /* ===== Page Styles ===== */
         body {
             margin: 0;
             font-family: 'Rubik Gemstones', sans-serif;
@@ -25,8 +24,8 @@
             position: relative;
         }
 
-        /* ===== Home Button (Top Left Outside Card) ===== */
-        .login-home-btn {
+        /* Home Button */
+        .home-btn {
             position: absolute;
             top: 20px;
             left: 20px;
@@ -36,26 +35,26 @@
             padding: 8px 18px;
             border-radius: 20px;
             font-size: 14px;
-            transition: all 0.3s ease;
+            transition: 0.3s;
         }
 
-        .login-home-btn:hover {
+        .home-btn:hover {
             background-color: #061c33;
         }
 
-        /* ===== Login Card ===== */
-        .login-container {
+        /* Card */
+        .otp-container {
             display: flex;
             background-color: #ffffff;
             border-radius: 15px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
             overflow: hidden;
-            max-width: 900px;
+            max-width: 850px;
             width: 90%;
         }
 
-        /* ===== Lottie Section ===== */
-        .login-animation {
+        /* Animation */
+        .otp-animation {
             width: 50%;
             background-color: #eaf1ff;
             display: flex;
@@ -63,13 +62,13 @@
             align-items: center;
         }
 
-        .login-animation lottie-player {
+        .otp-animation lottie-player {
             width: 80%;
             height: 80%;
         }
 
-        /* ===== Form Section ===== */
-        .login-form-section {
+        /* Form */
+        .otp-form {
             width: 50%;
             padding: 40px 30px;
             display: flex;
@@ -77,64 +76,54 @@
             justify-content: center;
         }
 
-        .login-form-title {
+        .otp-title {
             text-align: center;
-            font-size: 32px;
-            font-weight: bold;
+            font-size: 30px;
             color: #0b2c4d;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
-        .login-form-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .login-form-table td {
-            padding: 12px 10px;
+        .otp-form label {
             font-size: 15px;
+            margin-bottom: 6px;
         }
 
-        .login-form-table input[type="email"],
-        .login-form-table input[type="password"] {
+        .otp-form input[type="text"] {
             width: 100%;
             padding: 10px;
             border-radius: 6px;
             border: 1px solid #bbb;
             font-size: 14px;
+            margin-bottom: 20px;
+            text-align: center;
+            letter-spacing: 4px;
         }
 
-        .login-submit-btn {
+        .otp-btn {
             width: 100%;
             background-color: #0b2c4d;
             color: #ffffff;
             border: none;
-            padding: 12px 0;
+            padding: 12px;
             font-size: 16px;
             border-radius: 6px;
             cursor: pointer;
-            margin-top: 15px;
-            transition: all 0.3s ease;
+            transition: 0.3s;
         }
 
-        .login-submit-btn:hover {
+        .otp-btn:hover {
             background-color: #061c33;
         }
 
-        /* ===== Responsive ===== */
+        /* Responsive */
         @media (max-width: 768px) {
-            .login-container {
+            .otp-container {
                 flex-direction: column;
             }
 
-            .login-animation,
-            .login-form-section {
+            .otp-animation,
+            .otp-form {
                 width: 100%;
-            }
-
-            .login-animation lottie-player {
-                width: 60%;
-                height: 60%;
             }
         }
     </style>
@@ -142,12 +131,11 @@
 
 <body>
 
-    <!-- Home Button -->
-    <a href="{% url 'Guest:index' %}" class="login-home-btn">Home</a>
+    <a href="{% url 'Guest:index' %}" class="home-btn">Home</a>
 
-    <div class="login-container">
+    <div class="otp-container">
 
-        <!-- Lottie Animation -->
+        <!-- Animation -->
         <div class="login-animation">
             <lottie-player 
                 src="https://assets6.lottiefiles.com/packages/lf20_w51pcehl.json"
@@ -158,33 +146,17 @@
             </lottie-player>
         </div>
 
-        <!-- Login Form -->
-        <div class="login-form-section">
-            <div class="login-form-title">LOGIN</div>
+        <!-- Form -->
+        <div class="otp-form">
+            <div class="otp-title">OTP Verification</div>
 
             <form action="" method="POST">
                 {% csrf_token %}
-                <table class="login-form-table">
-                    <tr>
-                        <td>Email</td>
-                        <td>
-                            <input type="email" name="txt_email" required>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Password</td>
-                        <td>
-                            <input type="password" name="txt_password" required
-                                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                                title="Must contain at least one number, one uppercase, one lowercase letter, and at least 8 characters">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" align="center">
-                            <input type="submit" value="Login" class="login-submit-btn"><a href="{% url 'Guest:ForgotPassword' %}">Forgot Password</a>
-                        </td>
-                    </tr>
-                </table>
+
+                <label>Enter OTP</label>
+                <input type="text" name="txt_otp" maxlength="6" required>
+
+                <input type="submit" value="Verify OTP" class="otp-btn">
             </form>
         </div>
 
@@ -193,7 +165,6 @@
     {% if msg %}
     <script>
         alert("{{ msg }}");
-        window.location = "{% url 'Guest:Login' %}";
     </script>
     {% endif %}
 

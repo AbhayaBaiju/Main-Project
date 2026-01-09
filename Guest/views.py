@@ -1,6 +1,10 @@
 from django.shortcuts import render,redirect
 from Admin.models import *
 from Guest.models import *
+import random
+from django.core.mail import send_mail
+from django.conf import settings
+from django.contrib import messages
 # Create your views here.
 
 def index(request):
@@ -19,8 +23,11 @@ def UserRegistration(request):
         place = tbl_place.objects.get(id=request.POST.get("sel_place"))
         password = request.POST.get("txt_password")
         repassword = request.POST.get("txt_repassword")
-        checkemail=tbl_user.objects.filter(user_email=email).count()
-        if checkemail > 0:
+        checkuseremail=tbl_user.objects.filter(user_email=email).count()
+        checkjobprovioderemail=tbl_jobprovider.objects.filter(jobprovider_email=email).count()
+        if checkuseremail > 0:
+            return render(request,"Guest/UserRegistration.html",{'msg':"Email Already Exited"})
+        elif checkjobprovioderemail > 0:
             return render(request,"Guest/UserRegistration.html",{'msg':"Email Already Exited"})
         else:
 
@@ -82,8 +89,11 @@ def JobproviderRegistration(request):
         proof = request.FILES.get("file_proof")
         password = request.POST.get("txt_password")
         repassword = request.POST.get("txt_repassword")
-        checkemail=tbl_jobprovider.objects.filter(jobprovider_email=email).count()
-        if checkemail > 0:
+        checkjobprovideremail=tbl_jobprovider.objects.filter(jobprovider_email=email).count()
+        checkuseremail=tbl_user.objects.filter(user_email=email).count()
+        if checkjobprovideremail > 0:
+            return render(request,"Guest/JobproviderRegistration.html",{'msg':"Email Already Exited"})
+        elif checkuseremail > 0:
             return render(request,"Guest/JobproviderRegistration.html",{'msg':"Email Already Exited"})
         else:
             if password == repassword :
@@ -93,3 +103,81 @@ def JobproviderRegistration(request):
                 return render(request,"Guest/JobproviderRegistration.html",{'msg':"Password Mismatch"})
     else:
         return render(request,'Guest/JobproviderRegistration.html',{"districtDatas":districtDatas})
+    
+
+
+def ForgotPassword(request):
+    if request.method == "POST":
+        email = request.POST.get("txt_email")
+
+
+        if tbl_user.objects.filter(user_email=email).exists():
+            user = tbl_user.objects.get(user_email=email)
+            request.session["fid"] = user.id
+
+        elif tbl_jobprovider.objects.filter(jobprovider_email=email).exists():
+            jobprovider = tbl_jobprovider.objects.get(jobprovider_email=email)
+            request.session["gid"] = jobprovider.id
+
+        else:
+            return render(request, "Guest/ForgotPassword.html", {"msg": "Email not registered"})
+
+        otp = random.randint(111111, 999999)
+        request.session["otp"] = otp
+
+        send_mail(
+            'Forgot password OTP',
+            f"Hello\n\nYour OTP is {otp}\n\nThanks\nD MARKET Team",
+            settings.EMAIL_HOST_USER,
+            [email],
+        )
+
+        return redirect("Guest:OTP")
+
+    return render(request, "Guest/ForgotPassword.html")
+
+
+
+def OTP(request):
+    if request.method == "POST":
+        inp_otp = int(request.POST.get("txt_otp"))
+        if inp_otp == request.session["otp"]:
+            return redirect("Guest:NewPassword")
+        else:
+            return render(request,"Guest/OTP.html",{"msg":"OTP Does not Matches..!!"})
+    else:
+        return render(request,"Guest/OTP.html")
+
+
+def NewPassword(request):
+    if request.method == "POST":
+        new_pass = request.POST.get("txt_new_pass")
+        con_pass = request.POST.get("txt_con_pass")
+
+        if new_pass != con_pass:
+            return render(request, "Guest/NewPassword.html", {"msg": "Passwords do not match"})
+
+        if "fid" in request.session:
+            user = tbl_user.objects.get(id=request.session["fid"])
+            user.user_password = new_pass
+            user.save()
+
+            del request.session["fid"]
+            del request.session["otp"]
+
+            return render(request, "Guest/NewPassword.html", {"msg1": "User password updated successfully"})
+
+        elif "gid" in request.session:
+            jobprovider = tbl_jobprovider.objects.get(id=request.session["gid"])
+            jobprovider.jobprovider_password = new_pass
+            jobprovider.save()
+
+            del request.session["gid"]
+            del request.session["otp"]
+
+            return render(request, "Guest/NewPassword.html", {"msg1": "Job provider password updated successfully"})
+
+        else:
+            return render(request, "Guest/NewPassword.html", {"msg": "Session expired"})
+
+    return render(request, "Guest/NewPassword.html")
