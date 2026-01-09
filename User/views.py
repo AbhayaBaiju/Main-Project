@@ -73,9 +73,10 @@ def DeleteComplaint(request,did):
 
 def ViewJob(request):
     jobdata=tbl_job.objects.filter(job_lastdate__gte=date.today())
-    print(jobdata)
-
-    return render(request,'User/ViewJob.html',{'jobdata':jobdata})
+    jobcategory=tbl_jobcategory.objects.filter()
+    jobtype=tbl_jobtype.objects.filter()
+    
+    return render(request,'User/ViewJob.html',{'jobdata':jobdata,'jobcategory':jobcategory,'jobtype':jobtype})
 
 def Request(request,id):
     if request.method == "POST":
@@ -169,3 +170,22 @@ def Feedback(request):
 def Logout(request):
     del request.session['uid']
     return redirect('Guest:Login')
+
+def AjaxSearch(request):
+    if ((request.GET.get("title") != '') and (request.GET.get("jtid") != '') and (request.GET.get("jcid") != '')):
+        job = tbl_job.objects.filter(job_lastdate__gte=date.today(),job_title__istartswith=request.GET.get("title"),jobtype_id=request.GET.get("jtid"),jobcategory_id=request.GET.get("jcid"))
+    elif ((request.GET.get("title") != '') and (request.GET.get("jtid") != '')):
+        job = tbl_job.objects.filter(job_lastdate__gte=date.today(),job_title__istartswith=request.GET.get("title"),jobtype_id=request.GET.get("jtid"))
+    elif ((request.GET.get("title") != '') and (request.GET.get("jcid") != '')):
+        job = tbl_job.objects.filter(job_lastdate__gte=date.today(),job_title__istartswith=request.GET.get("title"),jobcategory_id=request.GET.get("jcid"))
+    elif ((request.GET.get("jtid") != '') and (request.GET.get("jcid") != '')):
+        job = tbl_job.objects.filter(job_lastdate__gte=date.today(),jobtype_id=request.GET.get("jtid"),jobcategory_id=request.GET.get("jcid"))
+    elif request.GET.get("title") != '':
+        job = tbl_job.objects.filter(job_lastdate__gte=date.today(),job_title__istartswith=request.GET.get("title"))
+    elif request.GET.get("jtid") != '':
+        job = tbl_job.objects.filter(job_lastdate__gte=date.today(),jobtype_id=request.GET.get("jtid"))
+    elif request.GET.get("jcid") != '':
+        job = tbl_job.objects.filter(job_lastdate__gte=date.today(),jobcategory_id=request.GET.get("jcid"))
+    else:
+        job = tbl_job.objects.filter(job_lastdate__gte=date.today())
+    return render(request,"User/AjaxSearch.html",{"job":job})

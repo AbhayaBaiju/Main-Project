@@ -1,107 +1,141 @@
 {% extends 'User/Header.html' %}
 {% block content %}
+
 <head>
     <title>View Job</title>
-
 </head>
+
 <style>
-    /* ===== View Job Page Styles ===== */
+    body {
+        background-color: #f4f6f9;
+    }
 
     .viewjob-wrapper {
         width: 100%;
-        display: flex;
-        justify-content: center;
-        margin-top: 40px;
         font-family: Arial, sans-serif;
     }
 
+    /* ===== Search Bar ===== */
+    .search-bar {
+        width: 95%;
+        max-width: 1200px;
+        margin: 40px auto 15px auto;
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .search-bar form {
+        display: flex;
+        gap: 10px;
+    }
+
+    .search-bar input,
+    .search-bar select {
+        padding: 6px 8px;
+        font-size: 13px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .search-bar button {
+        padding: 6px 12px;
+        font-size: 13px;
+        background-color: #0a1f44;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .search-bar button:hover {
+        background-color: #081a36;
+    }
+
+    /* ===== Card ===== */
     .viewjob-card {
         width: 95%;
         max-width: 1200px;
         background-color: #ffffff;
         padding: 20px;
         border-radius: 8px;
+        margin: auto;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
 
     .viewjob-card h2 {
         text-align: center;
-        margin-bottom: 20px;
-        color: #0a1f44; /* dark blue */
+        margin-bottom: 15px;
+        color: #0a1f44;
     }
 
+    /* ===== Table ===== */
     .viewjob-table {
         width: 100%;
         border-collapse: collapse;
-        text-align: left;
     }
 
-    .viewjob-table th, .viewjob-table td {
+    .viewjob-table th,
+    .viewjob-table td {
         border: 1px solid #ddd;
         padding: 10px;
-        vertical-align: top;
-    }
-
-    .viewjob-table th {
-        background-color: #0a1f44; /* dark blue */
-        color: #fff;
-        font-weight: bold;
         text-align: center;
     }
 
-    .viewjob-table td {
-        color: #333;
+    .viewjob-table th {
+        background-color: #0a1f44;
+        color: white;
     }
 
     .request-btn {
-        display: inline-block;
         padding: 5px 10px;
-        background-color: #0a1f44; /* dark blue */
-        color: #fff;
+        background-color: #0a1f44;
+        color: white;
         text-decoration: none;
         border-radius: 4px;
         font-size: 13px;
     }
 
     .request-btn:hover {
-        background-color: #081a36; /* darker hover */
-    }
-
-    @media screen and (max-width: 1024px) {
-        .viewjob-table th, .viewjob-table td {
-            font-size: 12px;
-            padding: 6px;
-        }
-
-        .request-btn {
-            font-size: 12px;
-            padding: 4px 8px;
-        }
-    }
-
-    @media screen and (max-width: 768px) {
-        .viewjob-card {
-            width: 100%;
-            padding: 15px;
-        }
-
-        .viewjob-table th, .viewjob-table td {
-            font-size: 11px;
-            padding: 5px;
-        }
+        background-color: #081a36;
     }
 </style>
 
 <div class="viewjob-wrapper">
+
+    <!-- 🔍 Search Bar (OUTSIDE CARD) -->
+    <div class="search-bar">
+        <input type="text" name="q" placeholder="Search job title" id="search_text">
+
+        <select name="category" id="sel_jobcategory">
+            <option value="">Job Category</option>
+            {% for c in jobcategory %}
+            <option value="{{ c.id }}">
+                {{ c.jobcategory_name }}
+            </option>
+            {% endfor %}
+        </select>
+
+        <select name="type" id="sel_jobtype">
+            <option value="">Job Type</option>
+            {% for t in jobtype %}
+            <option value="{{ t.id }}">
+                {{ t.jobtype_name }}
+            </option>
+            {% endfor %}
+        </select>
+        <button id="search_btn">Search</button>
+    </div>
+
+    <!-- 📦 Job Card -->
     <div class="viewjob-card">
 
         <h2>Available Jobs</h2>
 
-        <table class="viewjob-table">
+        <table class="viewjob-table" id="result">
             <tr>
                 <th>SI NO</th>
                 <th>Title</th>
-                <th>Content</th>
+                <th>Description</th>
                 <th>Required Age</th>
                 <th>Experience</th>
                 <th>Salary</th>
@@ -112,24 +146,47 @@
             </tr>
 
             {% for i in jobdata %}
-            <tr>
+            <tr class="job-row">
                 <td>{{ forloop.counter }}</td>
-                <td>{{ i.job_title }}</td>
+                <td class="job-title">{{ i.job_title }}</td>
                 <td>{{ i.job_content }}</td>
                 <td>{{ i.job_requriedage }}</td>
                 <td>{{ i.job_experience }}</td>
                 <td>{{ i.job_salary }}</td>
                 <td>{{ i.job_lastdate }}</td>
                 <td>{{ i.job_date }}</td>
-                <td>{{ i.jobprovider_id.jobprovider_name }}</td>
+                <td class="job-provider">{{ i.jobprovider_id.jobprovider_name }}</td>
                 <td>
                     <a href="{% url 'User:Request' i.id %}" class="request-btn">Request</a>
                 </td>
+            </tr>
+
+            {% empty %}
+            <tr>
+                <td colspan="10">No jobs found</td>
             </tr>
             {% endfor %}
         </table>
 
     </div>
 </div>
-<br><br><br><br><br><br><br><br>
+
+<br><br><br><br><br>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+    $("#search_btn").click(function () {
+        var jcid = document.getElementById('sel_jobcategory').value
+        var jtid = document.getElementById('sel_jobtype').value
+        var title = document.getElementById('search_text').value
+        $.ajax({
+            url: "{% url 'User:AjaxSearch' %}",
+            data: { jcid: jcid, jtid: jtid, title: title, },
+            success: function (data) {
+                $("#result").html(data);
+            }
+        });
+    });
+</script>
 {% endblock %}

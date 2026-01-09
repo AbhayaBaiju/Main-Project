@@ -20,5 +20,8 @@ urlpatterns=[
     path('Feedback/',views.Feedback,name='Feedback'),
     path('Logout/',views.Logout,name="Logout"),
 
+    path('AjaxSearch/',views.AjaxSearch,name="AjaxSearch"),
+
+
     
 ]

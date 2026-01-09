@@ -25,7 +25,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
     rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Rubik+Gemstones&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Rubik+Gemstones&display=swap" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="{% static 'Main/assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -63,14 +63,12 @@
       font-weight: 400;
       font-style: normal;
     }
-  </style>
-  <style>
-    .rubik-gemstones-regular {
-  font-family: "Rubik Gemstones", system-ui;
-  font-weight: 400;
-  font-style: normal;
-}
 
+    .rubik-gemstones-regular {
+      font-family: "Rubik Gemstones", system-ui;
+      font-weight: 400;
+      font-style: normal;
+    }
   </style>
 </head>
 
@@ -91,7 +89,7 @@
           <li><a href="{% url 'Guest:Login' %}">Login</a></li>
           <li><a href="{% url 'Guest:UserRegistration' %}">User Registration</a></li>
           <li><a href="{% url 'Guest:JobproviderRegistration' %}">Jobprovider Registration</a></li>
-        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
 
 
@@ -120,12 +118,18 @@
         <div class="row gy-4">
           <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
             <h3 class="bbh-hegarty-regular" style="font-size: 50px;">ABOUT US</h3>
-            <p style="font-size: 20px;">We are a dedicated team focused on building a simple, reliable, and user-friendly Job Board Application that connects job seekers with the right employment opportunities and helps employers find suitable candidates efficiently. Our platform is designed to simplify the hiring process by allowing companies to post job openings, manage applications, and review candidate profiles in one place, while enabling job seekers to search and apply for jobs based on their skills and interests. With an emphasis on clarity, accessibility, and performance, our goal is to bridge the gap between talent and opportunity and make the job search and recruitment process faster, smarter, and more transparent.</p>
-              
-            </div>
-            <div class="col-lg-6">
-              <img src="{% static 'Main/assets/img/about.jpg' %}" class="img-fluid rounded-4 mb-4" alt="">
-            </div>
+            <p style="font-size: 20px;">We are a dedicated team focused on building a simple, reliable, and
+              user-friendly Job Board Application that connects job seekers with the right employment opportunities and
+              helps employers find suitable candidates efficiently. Our platform is designed to simplify the hiring
+              process by allowing companies to post job openings, manage applications, and review candidate profiles in
+              one place, while enabling job seekers to search and apply for jobs based on their skills and interests.
+              With an emphasis on clarity, accessibility, and performance, our goal is to bridge the gap between talent
+              and opportunity and make the job search and recruitment process faster, smarter, and more transparent.</p>
+
+          </div>
+          <div class="col-lg-6">
+            <img src="{% static 'Main/assets/img/about.jpg' %}" class="img-fluid rounded-4 mb-4" alt="">
+          </div>
         </div>
 
       </div>
@@ -152,11 +156,13 @@
               </div>
               <div class="details position-relative">
                 <div class="icon">
-                 <img src="{% static 'Main/assets/img/apple-logo.png' %}" width="50px" alt="">
+                  <img src="{% static 'Main/assets/img/apple-logo.png' %}" width="50px" alt="">
                 </div>
                 <h3>APPLE</h3>
                 <!-- </a> -->
-                <p>Apple Inc. is a multinational technology company headquartered in Cupertino, California, USA.It is widely known for designing, developing, and selling innovative consumer electronics, software, and digital services.</p>
+                <p>Apple Inc. is a multinational technology company headquartered in Cupertino, California, USA.It is
+                  widely known for designing, developing, and selling innovative consumer electronics, software, and
+                  digital services.</p>
               </div>
             </div>
           </div><!-- End Service Item -->
@@ -172,7 +178,8 @@
                 </div>
                 <h3>GOOGLE</h3>
                 <!-- </a> -->
-                <p>Founded in 1998 by Larry Page and Sergey Brin, Google focuses on innovation in areas such as cloud computing, artificial intelligence, mobile operating systems (Android), and digital advertising.</p>
+                <p>Founded in 1998 by Larry Page and Sergey Brin, Google focuses on innovation in areas such as cloud
+                  computing, artificial intelligence, mobile operating systems (Android), and digital advertising.</p>
               </div>
             </div>
           </div><!-- End Service Item -->
@@ -188,7 +195,8 @@
                 </div>
                 <h3>MICROSOFT</h3>
                 <!-- </a> -->
-                <p>Microsoft Corporation is a multinational technology company headquartered in Redmond, Washington, USA. It is widely known for developing software products such as Microsoft Windows.</p>
+                <p>Microsoft Corporation is a multinational technology company headquartered in Redmond, Washington,
+                  USA. It is widely known for developing software products such as Microsoft Windows.</p>
               </div>
             </div>
           </div><!-- End Service Item -->
@@ -209,7 +217,7 @@
         <ul class="nav nav-tabs row  d-flex justify-content-center" data-aos="fade-up" data-aos-delay="100">
           <li class="nav-item col-3">
             <a class="nav-link active show" data-bs-toggle="tab" data-bs-target="#features-tab-1">
-              <i class="fa-regular fa-alarm-clock" ></i>
+              <i class="fa-regular fa-alarm-clock"></i>
               <h4 class="d-none d-lg-block">PART-TIME JOB <br>FULL-TIME JOB</h4>
             </a>
           </li>
@@ -218,7 +226,7 @@
               <i class="bi bi-box-seam"></i>
               <h4 class="d-none d-lg-block">INTERNSHIP</h4>
             </a>
-            
+
           </li>
           <li class="nav-item col-3">
             <a class="nav-link" data-bs-toggle="tab" data-bs-target="#features-tab-3">
@@ -233,21 +241,30 @@
           <div class="tab-pane fade active show" id="features-tab-1">
             <div class="row">
               <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0">
-                
+
                 <h3>PART-TIME JOB</h3>
                 <p class="fst-italic">
-                  Part-Time Jobs are employment positions in which an individual works for fewer hours than a full-time employee. These jobs usually involve flexible working hours and may not require a long-term commitment.</p>
+                  Part-Time Jobs are employment positions in which an individual works for fewer hours than a full-time
+                  employee. These jobs usually involve flexible working hours and may not require a long-term
+                  commitment.</p>
 
-<p>Part-time jobs are commonly suitable for students, freelancers, homemakers, or individuals seeking extra income. Employees are generally paid on an hourly, daily, or monthly basis, and benefits are often limited compared to full-time jobs. In a job board application, part-time jobs help users find opportunities that match their availability and work–life balance.
+                <p>Part-time jobs are commonly suitable for students, freelancers, homemakers, or individuals seeking
+                  extra income. Employees are generally paid on an hourly, daily, or monthly basis, and benefits are
+                  often limited compared to full-time jobs. In a job board application, part-time jobs help users find
+                  opportunities that match their availability and work–life balance.
                 </p>
                 <h3>FULL-TIME JOB</h3>
 
                 <p>
-                  Full-Time Jobs are employment positions in which an individual works a fixed number of hours per week, typically 35–40 hours, for a single organization. These jobs usually involve a long-term or permanent work arrangement.</p>
+                  Full-Time Jobs are employment positions in which an individual works a fixed number of hours per week,
+                  typically 35–40 hours, for a single organization. These jobs usually involve a long-term or permanent
+                  work arrangement.</p>
 
-<P>Employees in full-time jobs receive a regular salary and often enjoy additional benefits such as paid leave, health insurance, provident fund, and job security. In a job board application, full-time jobs are listed for candidates seeking stable careers and long-term professional growth.
+                <P>Employees in full-time jobs receive a regular salary and often enjoy additional benefits such as paid
+                  leave, health insurance, provident fund, and job security. In a job board application, full-time jobs
+                  are listed for candidates seeking stable careers and long-term professional growth.
                 </p>
-                
+
               </div>
               <div class="col-lg-6 order-1 order-lg-2 text-center">
                 <img src="{% static 'Main/assets/img/working-1.jpg' %}" alt="" class="img-fluid">
@@ -260,11 +277,17 @@
               <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0"><br><br>
                 <h3>INTERNSHIP</h3><br>
                 <p>
-                  An Internship is a short-term, training-oriented job designed mainly for students or fresh graduates (freshers) to help them gain practical, real-world experience in a particular field.</p>
+                  An Internship is a short-term, training-oriented job designed mainly for students or fresh graduates
+                  (freshers) to help them gain practical, real-world experience in a particular field.</p>
 
-<P>During an internship, candidates work under the guidance of experienced professionals and apply the theoretical knowledge they have learned in college to real tasks and projects. Internships may be paid or unpaid and usually last for a few weeks to several months. They help students develop technical skills, improve communication, understand workplace culture, and enhance their resumes. In a job board application, internship listings are especially useful for candidates who are starting their careers and looking to build industry experience.
+                <P>During an internship, candidates work under the guidance of experienced professionals and apply the
+                  theoretical knowledge they have learned in college to real tasks and projects. Internships may be paid
+                  or unpaid and usually last for a few weeks to several months. They help students develop technical
+                  skills, improve communication, understand workplace culture, and enhance their resumes. In a job board
+                  application, internship listings are especially useful for candidates who are starting their careers
+                  and looking to build industry experience.
                 </p>
-                
+
               </div>
               <div class="col-lg-6 order-1 order-lg-2 text-center">
                 <img src="{% static 'Main/assets/img/working-2.jpg' %}" alt="" class="img-fluid">
@@ -277,11 +300,17 @@
               <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0"><br><br>
                 <h3>FREELANCE JOB</h3><br>
                 <p>
-                  Freelance Jobs are a type of work where individuals are self-employed professionals who offer their skills and services to clients on a task-based or project-based basis instead of working as permanent employees.</p>
+                  Freelance Jobs are a type of work where individuals are self-employed professionals who offer their
+                  skills and services to clients on a task-based or project-based basis instead of working as permanent
+                  employees.</p>
 
-<p>Freelancers are hired for specific projects such as website development, graphic design, content writing, digital marketing, or data analysis. They usually work for multiple clients at the same time and have the freedom to choose their working hours and location. Payment is typically made per project, per task, or per hour. In a job board application, freelance jobs help connect companies with skilled professionals for short-term or specialized work without long-term employment commitments.
+                <p>Freelancers are hired for specific projects such as website development, graphic design, content
+                  writing, digital marketing, or data analysis. They usually work for multiple clients at the same time
+                  and have the freedom to choose their working hours and location. Payment is typically made per
+                  project, per task, or per hour. In a job board application, freelance jobs help connect companies with
+                  skilled professionals for short-term or specialized work without long-term employment commitments.
                 </p>
-              
+
               </div>
               <div class="col-lg-6 order-1 order-lg-2 text-center">
                 <img src="{% static 'Main/assets/img/working-3.jpg' %}" alt="" class="img-fluid">
@@ -336,7 +365,7 @@
                   data-aos-delay="200">
                   <i class="bi bi-geo-alt"></i>
                   <h3>Address</h3>
-                  <p>A108 Adam Street, New York, NY 535022</p>
+                  <p>St.Kuriakose Collage, Kuruppampady,683545</p>
                 </div>
               </div><!-- End Info Item -->
 
@@ -345,7 +374,7 @@
                   data-aos-delay="300">
                   <i class="bi bi-telephone"></i>
                   <h3>Call Us</h3>
-                  <p>+1 5589 55488 55</p>
+                  <p>+91 8592867876</p>
                 </div>
               </div><!-- End Info Item -->
 
